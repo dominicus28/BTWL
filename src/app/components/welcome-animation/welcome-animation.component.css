@@ -1,0 +1,33 @@
+.linkastext {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  position: absolute;
+  top: 33%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1, h3 {
+  text-align: center;
+  font-weight: normal;
+  margin-top: 113%;
+}
+
+h1 {
+  text-transform: uppercase;
+  line-height: 80%;
+  font-size: 2.75em;
+}
+
+h3 {
+  color: #070707;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 0;
+  font-size: 1em;
+}

@@ -1,0 +1,28 @@
+a {
+  display: block;
+  padding: 4%;
+  width: 80%;
+  margin: 10% auto;
+  background-color: #F8F8F8;
+  font-size: 1.3em;
+  border-radius: 4px;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
+
+.menu-items {
+  position: fixed;
+  padding-top: 7.5%;
+  height: 100%;
+  width: 70%;
+  background-color: #FFFFFF;
+}
+
+.bottom-item {
+  margin-top: 50%;
+}
+
+a:hover {
+  background-color: #FFC000;
+}

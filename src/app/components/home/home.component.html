@@ -1,0 +1,33 @@
+<nav>
+  <div class="container" (click)="onPress()">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </div>
+  <div class="title">Nadaję paczkę</div>
+</nav>
+
+<div class="menu-render" *ngIf="display">
+  <app-menu></app-menu>
+</div>
+
+<div class="packages-list">
+  <ul>
+    <li *ngFor="let package of packagesList">
+      <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
+      Do: {{package.to}}<br>
+      ID: {{package.id}}<br>
+      {{package.from}} &#8594; {{package.destination}}<br>
+      Status: {{package.status}}
+    </li>
+    <li *ngFor="let package of packagesList">
+      <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
+      Do: {{package.to}}<br>
+      ID: {{package.id}}<br>
+      {{package.from}} &#8594; {{package.destination}}<br>
+      Status: {{package.status}}
+    </li>
+  </ul>
+</div>
+
+

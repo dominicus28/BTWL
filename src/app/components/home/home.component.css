@@ -1,0 +1,42 @@
+nav {
+  height: 7.5%;
+  background-color: #FFFFFF;
+}
+
+.container {
+  display: inline-block;
+  margin: 6px 12px;
+}
+
+.title {
+  text-align: center;
+  margin: -30px auto;
+  font-size: 1.3em;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  margin: 10% 5%;
+  text-align: right;
+  list-style-type: none;
+  font-size: 1.2em;
+  background-color: #FFFFFF;
+  padding: 5%;
+}
+
+li > img {
+  float: left;
+}
+
+

@@ -1,0 +1,38 @@
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+
+export class HomeComponent {
+  display = false;
+  packagesList = [
+    {
+      to: "Jan Kowalski",
+      id: 110043,
+      from: "Wrocław",
+      destination: "Leśnica",
+      status: "w drodze"
+    },
+    {
+      to: "Mirosław Close",
+      id: 987313,
+      from: "Wrocław",
+      destination: "Kąty Wrocławskie",
+      status: "w drodze"
+    },
+    {
+      to: "Ilona Nowak",
+      id: 12223,
+      from: "Wrocław Psie Pole",
+      destination: "Wrocław Muchobór",
+      status: "czeka na ofertę"
+    }
+  ]
+  onPress() {
+    this.display = !this.display;
+  }
+
+}
