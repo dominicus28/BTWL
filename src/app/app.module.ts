@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { AppUiModule } from './app-ui.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MenuComponent } from './components/menu/menu.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AppUiModule
   ],
   providers: [],
   bootstrap: [AppComponent]
