@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { AppUiModule } from './app-ui.module';
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AppUiModule } from './app-ui.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AppUiModule
+    AppUiModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

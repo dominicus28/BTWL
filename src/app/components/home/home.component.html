@@ -18,6 +18,16 @@
           Status: {{package.status}}
         </div>
       </div>
+      <div class="container" *ngFor="let item of data">
+        <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
+        <div class="description">
+          Do: {{item.id}}<br>
+          ID: {{item.size}}<br>
+          {{item.deliverFrom}} &#8594; {{item.deliverTo}}<br>
+          Status: {{item.status}}
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="menu-render" *ngIf="display">

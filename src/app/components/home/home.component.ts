@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ParcelsService} from '../../parcels.service'
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,15 @@ import {Component} from '@angular/core';
 
 export class HomeComponent {
   display = false;
+  data: any = [];
+
+  constructor(private parcel:ParcelsService) {
+
+    this.parcel.getData().subscribe(data=>{
+      console.warn(data)
+      this.data = data
+    })
+  }
   packagesList = [
     {
       to: "Jan Kowalski",
