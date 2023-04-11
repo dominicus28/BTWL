@@ -9,25 +9,34 @@
 img {
   position: absolute;
   top: 33%;
-  left: 50%;
+  left: 49%;
   transform: translate(-50%, -50%);
+  min-width: 20%;
+  min-height: 20%;
+  max-height: 60%;
+  max-width: 60%;
 }
 
 h1, h3 {
   text-align: center;
   font-weight: normal;
-  margin-top: 113%;
+}
+
+h1:before {
+  content: '';
+  min-height: 55vmin;
+  height: 55vh;
+  display: block;
 }
 
 h1 {
   text-transform: uppercase;
   line-height: 80%;
-  font-size: 2.75em;
+  font-size: 6vmax;
 }
 
 h3 {
   color: #070707;
   color: rgba(0, 0, 0, 0.5);
-  margin-top: 0;
-  font-size: 1em;
+  font-size: 2vmax;
 }

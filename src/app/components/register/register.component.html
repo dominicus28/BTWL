@@ -1,4 +1,4 @@
-<nav>
+<!--<nav>
   <button class="astext" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Zaloguj</button>
   <button class="astext selected" routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Zarejestruj</button>
 </nav>
@@ -15,3 +15,31 @@
   <a href="/about" class="bottom-footer">O nas</a>
   <a href="/contact" class="bottom-footer">Kontakt</a>
 </footer>
+-->
+<div class="parent">
+  <div class="div1">
+    <button class="astext" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Zaloguj</button>
+  </div>
+  <div class="div2 selected">
+    <button class="astext">Zarejestruj</button>
+  </div>
+  <div class="div3">
+    <a href="/about" class="bottom-footer astext">O nas</a>
+  </div>
+  <div class="div4">
+    <a href="/contact" class="bottom-footer astext">Kontakt</a>
+  </div>
+  <div class="div5">
+    <input class="register-button" form="register-form" type="submit" value="Zarejestruj mnie!">
+  </div>
+  <div class="div6">
+    <form id="register-form">
+      <input type="text" id="name" name="mail" placeholder="Imię"><br><br>
+      <input type="text" id="surname" name="mail" placeholder="Nazwisko"><br><br>
+      <input type="email" id="email" name="mail" placeholder="Adres email"><br><br>
+      <input type="password" id="password" name="password" placeholder="Hasło"><br><br>
+      <input type="password" id="repeat-password" name="repeat-password" placeholder="Powtórz hasło"><br><br>
+      <input type="number" id="telephone" name="telephone" placeholder="Numer telefonu"><br><br>
+    </form>
+  </div>
+</div>

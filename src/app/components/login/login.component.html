@@ -1,16 +1,34 @@
-<nav>
-  <button class="astext selected">Zaloguj</button>
-  <button class="astext" routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Zarejestruj</button>
-</nav>
-<img src = "assets/images/logo.svg" alt="Logo of BTWL Platform"/>
-<form>
-  <input type="email" id="email" name="mail" placeholder="Adres email"><br><br>
-  <input type="password" id="password" name="password" placeholder="Hasło"><br>
-  <input class="login-button" type="submit" value="Zaloguj się!" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">
-</form>
-<footer>
-  <a href="/forgot_password" class="forgot-pass">Zapomniałem hasła</a><br>
-  <a href="/about" class="bottom-footer">O nas</a>
-  <a href="/contact" class="bottom-footer">Kontakt</a>
-</footer>
+<div class="parent">
+    <div class="div1 selected">
+      <button class="astext">Zaloguj</button>
+    </div>
+    <div class="div2">
+      <button class="astext" routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Zarejestruj</button>
+    </div>
+  <div class="div3">
+    <form id="login-form">
+      <input type="email" id="email" name="mail" placeholder="Adres email"><br><br>
+      <input type="password" id="password" name="password" placeholder="Hasło"><br>
+    </form>
+  </div>
+<!--  <div class="div4"> </div>-->
+  <div class="div5"> </div>
+  <div class="div6">
+    <img src = "assets/images/logo.svg" alt="Logo of BTWL Platform"/>
+  </div>
+  <div class="div7"> </div>
+  <div class="div8">
+    <input class="login-button" form="login-form" type="submit" value="Zaloguj się!" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">
+  </div>
+  <div class="div9"> </div>
+  <div class="div10">
+    <a href="/forgot_password" class="forgot-pass astext center">Zapomniałem hasła</a>
+  </div>
+  <div class="div11">
+    <a href="/about" class="bottom-footer astext center">O nas</a>
+  </div>
+  <div class="div12">
+    <a href="/contact" class="bottom-footer astext center">Kontakt</a>
+  </div>
+</div>
 
