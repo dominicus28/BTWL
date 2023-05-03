@@ -12,10 +12,11 @@ public class UserService implements IUserService {
         //creating an object of ArrayList
         ArrayList<User> users = new ArrayList<User>();
         //adding users to the List
-        users.add(new User(1, "Tom", "Keen", false, false, false, true));
-        users.add(new User(2, "Elizabeth", "Keen", false, true, false, false));
-        users.add(new User(3, "Reymond", "Reddington", false, false, true, false));
-        users.add(new User(4, "Samar", "Navabi", false, false, false, true));
+        /*
+        users.add(new User("Tom", "Keen", "nadawca"));
+        users.add(new User("Elizabeth", "Keen"));
+        users.add(new User("Reymond", "Reddington"));
+        users.add(new User("Samar", "Navabi"));*/
         //returns a list of user
         return users;
     }

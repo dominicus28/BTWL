@@ -1,44 +1,32 @@
 package com.javatpoint.models;
 
 public class User {
-    private int id;
     private String name;
     private String surname;
     private String email;
     private String password;
     private String phNumber;
+    private Role role;
     
-    boolean ifAdministrator;
-    boolean ifSender;
-    boolean ifReceiver;
-    boolean ifCourier;
-    // todo interface Role
 
     //default constructor
-    public User()
-    {
+    public User() {
     
     }
     //constructor using fields
-    public User(int id, String name, String surname, boolean ifAdministrator, boolean ifSender,
-    boolean ifReceiver, boolean ifCourier)
+    public User(String name, String surname, String email, 
+                String password, String phNumber, Role role)
     {
         super();
-        this.id = id;
         this.name = name;
         this.surname = surname;
-        this.ifAdministrator = ifAdministrator;
-        this.ifSender = ifSender;
-        this.ifReceiver = ifReceiver;
-        this.ifCourier = ifCourier;
+        this.email = email;
+        this.password = password;
+        this.phNumber = phNumber;
+        this.role = role;
+
     }
     //getters and setters
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
     public String getName() {
         return name;
     }
@@ -50,30 +38,6 @@ public class User {
     }
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-    public boolean getIfAdministrator() {
-        return ifAdministrator;
-    }
-    public void setIfAdministrator(boolean ifAdministrator) {
-        this.ifAdministrator = ifAdministrator;
-    }
-    public boolean getIfSender() {
-        return ifSender;
-    }
-    public void setIfSender(boolean ifSender) {
-        this.ifSender = ifSender;
-    }
-    public boolean getIfReceiver() {
-        return ifReceiver;
-    }
-    public void setIfReceiver(boolean ifReceiver) {
-        this.ifReceiver = ifReceiver;
-    }
-    public boolean getIfCourierr() {
-        return ifCourier;
-    }
-    public void setIfCourier(boolean ifCourier) {
-        this.ifCourier = ifCourier;
     }
     public String getEmail() {
         return email;
@@ -93,5 +57,10 @@ public class User {
     public void setPhNumber(String phNumber) {
         this.phNumber = phNumber;
     }
+    public Role getRole() {
+        return role;
+    }
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
-

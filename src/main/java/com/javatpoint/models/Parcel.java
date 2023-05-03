@@ -1,62 +1,40 @@
 package com.javatpoint.models;
 
+import java.util.HashMap;
+
 public class Parcel {
-    private int id;
-    private char size;
-    private int senderId;
-    private int receiverId;
-    private int courierId;
+    private char size;  // A or B or C
     private String deliverFrom;
     private String deliverTo;
-    private int status;
-    private double price;
+    private float insurance;    // ubezpieczenie
+    private HashMap<String, String> status;
+    private User sender;
+    private User receiver;
 
     //default constructor  
-    public Parcel()  
-    {  
+    public Parcel () {
         
-    }  
-    //constructor using fields  
-    public Parcel(int id, char size, int senderId, int receiverId, int courierId)   
-    {  
-        super();  
-        this.id = id;  
+    }
+
+    //constructor using fields
+    public Parcel(char size, String deliverFrom, String deliverTo, float insurance, HashMap<String, String> status, User receiver,
+            User sender) {
         this.size = size;
-        this.senderId = senderId;
-        this.receiverId = receiverId;
-        this.courierId = courierId;
+        this.deliverFrom = deliverFrom;
+        this.deliverTo = deliverTo;
+        this.insurance = insurance;
+        this.status = status;
+        this.receiver = receiver;
+        this.sender = sender;
     }
 
     //getters and setters  
-    public int getId() {  
-        return id;  
-    }  
-    public void setId(int id) {  
-        this.id = id;  
-    }
+
     public char getSize() {
         return size;
     }
     public void setSize(char size) {  
         this.size = size;  
-    }
-    public int getSenderId() {
-        return senderId;
-    }
-    public void setSenderId(int senderId) {  
-        this.senderId = senderId;  
-    }
-    public int getRevicerId() {
-        return receiverId;
-    }
-    public void setRevicerId(int receiverId) {  
-        this.receiverId = receiverId;  
-    }
-    public int getCourierId() {
-        return courierId;
-    }
-    public void setCourierId(int courierId) {  
-        this.courierId = courierId;  
     }
     public String getDeliverFrom() {
         return deliverFrom;
@@ -70,16 +48,28 @@ public class Parcel {
     public void setDeliverTo(String deliverTo) {
         this.deliverTo = deliverTo;
     }
-    public int getStatus() {
+    public float getInsurance() {
+        return insurance;
+    }
+    public void setInsurance(float insurance) {
+        this.insurance = insurance;
+    }
+    public HashMap<String, String> getStatus() {
         return status;
     }
-    public void setStatus(int status) {
+    public void setStatus(HashMap<String, String> status) {
         this.status = status;
     }
-    public double getPrice() {
-        return price;
+        public User getSender() {
+        return sender;
     }
-    public void setPrice(double price) {
-        this.price = price;
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+    public User getReceiver() {
+        return receiver;
+    }
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 }
