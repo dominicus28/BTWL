@@ -1,0 +1,25 @@
+<div class="parent">
+  <div class="div1">
+    <button mat-button class="menu-button" (click)="onPress()">
+      <mat-icon [inline]="true">menu</mat-icon>
+    </button>
+  </div>
+  <div class="div2">
+    <div class="title">Mój profil</div>
+  </div>
+  <div class="div3">
+    <br>
+    <form ngNativeValidate id="profile-form" #userForm="ngForm" (ngSubmit)="getProfileFormData(userForm.value)">
+      <input type="text" ngModel id="name" name="name" placeholder="Imię"><br><br>
+      <input type="text" ngModel id="surname" name="surname" placeholder="Nazwisko"><br><br>
+      <input type="email" ngModel id="email" name="mail" placeholder="Adres email"><br><br>
+      <input type="number" ngModel id="telephone" name="telephone" placeholder="Numer telefonu"><br><br>
+    </form>
+  </div>
+  <div class="div4">
+    <input class="send-button" type="submit" form="profile-form" value="Zmień moje dane">
+  </div>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
+</div>

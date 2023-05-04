@@ -1,0 +1,25 @@
+<div class="parent">
+  <div class="div1">
+    <button mat-button class="menu-button" (click)="onPress()">
+      <mat-icon [inline]="true">menu</mat-icon>
+    </button>
+  </div>
+  <div class="div2">
+    <div class="title">Nadaję paczkę</div>
+  </div>
+  <div class="div3">
+    <br>
+    <form ngNativeValidate id="second-send-form" #userForm="ngForm" (ngSubmit)="getSendFormData(userForm.value)">
+      <label>Wskaż paczkomat nadania:</label>
+      <input type="number" ngModel required id="senderId" name="senderId" placeholder="Numer paczkomatu"><br><br>
+      <label>Wskaż paczkomat odbioru:</label>
+      <input type="number" ngModel required id="receiverId" name="receiverId" placeholder="Numer paczkomatu"><br><br>
+    </form>
+  </div>
+  <div class="div4">
+    <input class="send-button" type="submit" form="second-send-form" value="Nadaj">
+  </div>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
+</div>

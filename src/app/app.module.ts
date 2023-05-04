@@ -10,7 +10,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { AppUiModule } from './app-ui.module';
-import {HttpClientModule} from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { SendComponent } from './components/send/send.component';
+import { SendDetailsComponent } from './components/send-details/send-details.component';
+import { FormsModule } from '@angular/forms';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SendDetailsLPComponent } from './components/send-details-lp/send-details-lp.component';
+import { SendDetailsPLComponent } from './components/send-details-pl/send-details-pl.component';
+import { SendDetailsPPComponent } from './components/send-details-pp/send-details-pp.component'
 
 @NgModule({
   declarations: [
@@ -19,14 +26,21 @@ import {HttpClientModule} from '@angular/common/http'
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    MenuComponent
+    MenuComponent,
+    SendComponent,
+    SendDetailsComponent,
+    ProfileComponent,
+    SendDetailsLPComponent,
+    SendDetailsPLComponent,
+    SendDetailsPPComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AppUiModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

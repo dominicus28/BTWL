@@ -1,0 +1,35 @@
+<div class="parent">
+  <div class="div1">
+    <button mat-button class="menu-button" (click)="onPress()">
+      <mat-icon [inline]="true">menu</mat-icon>
+    </button>
+  </div>
+  <div class="div2">
+    <div class="title">Nadaję paczkę</div>
+  </div>
+  <div class="div3">
+    <br>
+    <form ngNativeValidate id="second-send-form" #userForm="ngForm" (ngSubmit)="getSendFormData(userForm.value)">
+      <label>Dane nadawcy:</label>
+      <input type="text" ngModel required id="name" name="name" placeholder="Imię i nazwisko"><br><br>
+      <input type="email" ngModel required id="email" name="mail" placeholder="Adres email"><br><br>
+      <input type="number" ngModel required id="telephone" name="telephone" placeholder="Numer telefonu"><br><br>
+      <input type="number" ngModel required id="postal" name="postal" placeholder="Kod pocztowy"><br><br>
+      <input type="text" ngModel required id="place" name="place" placeholder="Miejscowość"><br><br>
+      <input type="text" ngModel required id="street" name="street" placeholder="Ulica"><br><br>
+      <label>Dane odbiorcy:</label>
+      <input type="text" ngModel required id="receiverName" name="receiverName" placeholder="Imię i nazwisko"><br><br>
+      <input type="email" ngModel required id="receiverMail" name="receiverMail" placeholder="Adres email"><br><br>
+      <input type="number" ngModel required id="receiverTelephone" name="receiverTelephone" placeholder="Numer telefonu"><br><br>
+      <input type="number" ngModel required id="receiverPostal" name="receiverPostal" placeholder="Kod pocztowy"><br><br>
+      <input type="text" ngModel required id="receiverPlace" name="receiverPlace" placeholder="Miejscowość"><br><br>
+      <input type="text" ngModel required id="receiverStreet" name="receiverStreet" placeholder="Ulica"><br><br>
+    </form>
+  </div>
+  <div class="div4">
+    <input class="send-button" type="submit" form="second-send-form" value="Nadaj">
+  </div>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
+</div>

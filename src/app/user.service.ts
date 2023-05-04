@@ -4,17 +4,12 @@ import {HttpClient} from '@angular/common/http'
 @Injectable({
   providedIn: 'root'
 })
-export class ParcelsService {
+export class UserService {
 
   constructor(private http:HttpClient) { }
 
-  getData() {
-    let url="http://localhost:8080/parcels";
-    return this.http.get(url);
-  }
-
-  sendParcel(data: any){
+  updateUser(data:any){
     let url="http://localhost"
-    return this.http.post(url,data)
+    return this.http.patch(url,data)
   }
 }

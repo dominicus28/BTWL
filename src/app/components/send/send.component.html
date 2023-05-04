@@ -1,0 +1,50 @@
+<div class="parent">
+  <div class="div1">
+    <button mat-button class="menu-button" (click)="onPress()">
+      <mat-icon [inline]="true">menu</mat-icon>
+    </button>
+  </div>
+  <div class="div2">
+    <div class="title">Nadaję paczkę</div>
+  </div>
+  <div class="div3">
+    <form ngNativeValidate id="first-send-form" #userForm="ngForm">
+      <h1>Gabaryt:</h1>
+        <input ngModel required name="size" type="radio" id="a" value="a">
+        <label for="a">A</label><br>
+        <input ngModel required name="size" type="radio" id="b" value="b">
+        <label for="b">B</label><br>
+        <input ngModel required name="size" type="radio" id="c" value="c">
+        <label for="c">C</label><br>
+      <h1>Miejsce wysyłki i odbioru:</h1>
+      <input ngModel required name="delivery" type="radio" id="l-l" value="l-l" (click)="setDeliveryProperty('l-l', userForm.value.size)">
+      <label for="l-l">Z lokalizacji do lokalizacji</label><br>
+      <input ngModel required name="delivery" type="radio" id="l-p" value="l-p" (click)="setDeliveryProperty('l-p', userForm.value.size)">
+      <label for="l-p">Z lokalizacji do paczkomatu</label><br>
+      <input ngModel required name="delivery" type="radio" id="p-l" value="p-l" (click)="setDeliveryProperty('p-l', userForm.value.size)">
+      <label for="p-l">Z paczkomatu do lokalizacji</label><br>
+      <input ngModel required name="delivery" type="radio" id="p-p" value="p-p" (click)="setDeliveryProperty('p-p', userForm.value.size)">
+      <label for="p-p">Z paczkomatu do paczkomatu</label>
+    </form>
+  </div>
+<!--  <div class="div4">-->
+<!--    <input class="send-button" form="first-send-form" type="submit" value="Dalej" routerLink="/send-details" routerLinkActive="active" ariaCurrentWhenActive="page">-->
+<!--  </div>-->
+  <ng-container *ngIf="userForm.valid">
+    <div class="menu-render" *ngIf="display">
+      <app-menu></app-menu>
+    </div>
+    <div class="send-render" *ngIf="display_details=='l-l'">
+      <app-send-details></app-send-details>
+    </div>
+    <div class="send-render" *ngIf="display_details=='l-p'">
+      <app-send-details-lp></app-send-details-lp>
+    </div>
+    <div class="send-render" *ngIf="display_details=='p-l'">
+      <app-send-details-pl></app-send-details-pl>
+    </div>
+    <div class="send-render" *ngIf="display_details=='p-p'">
+      <app-send-details-pp></app-send-details-pp>
+    </div>
+  </ng-container>
+</div>
