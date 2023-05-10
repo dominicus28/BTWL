@@ -17,7 +17,12 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SendDetailsLPComponent } from './components/send-details-lp/send-details-lp.component';
 import { SendDetailsPLComponent } from './components/send-details-pl/send-details-pl.component';
-import { SendDetailsPPComponent } from './components/send-details-pp/send-details-pp.component'
+import { SendDetailsPPComponent } from './components/send-details-pp/send-details-pp.component';
+import { PickupComponent } from './components/pickup/pickup.component';
+import { DeliverAddressComponent } from './components/deliver-address/deliver-address.component';
+import { DeliverBinComponent } from './components/deliver-bin/deliver-bin.component';
+import { DeliverComponent } from './components/deliver/deliver.component';
+import { BinsMapComponent } from './components/bins-map/bins-map.component'
 
 @NgModule({
   declarations: [
@@ -32,7 +37,12 @@ import { SendDetailsPPComponent } from './components/send-details-pp/send-detail
     ProfileComponent,
     SendDetailsLPComponent,
     SendDetailsPLComponent,
-    SendDetailsPPComponent
+    SendDetailsPPComponent,
+    PickupComponent,
+    DeliverAddressComponent,
+    DeliverBinComponent,
+    DeliverComponent,
+    BinsMapComponent
   ],
   imports: [
     BrowserModule,

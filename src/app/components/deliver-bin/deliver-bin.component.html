@@ -1,0 +1,28 @@
+<div class="parent">
+  <div class="div1">
+    <button mat-button class="menu-button" (click)="onPress()">
+      <mat-icon [inline]="true">menu</mat-icon>
+    </button>
+  </div>
+  <div class="div2">
+    <div class="title">Dostarczam paczkę</div>
+  </div>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
+  <div class="div3">
+    <h1>Wybierz paczkomat:</h1>
+    <app-bins-map></app-bins-map>
+<!--    <div class="packages-list">-->
+<!--      <div class="container" *ngFor="let item of data">-->
+<!--        <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>-->
+<!--        <div class="description">-->
+<!--          Do: {{item.id}}<br>-->
+<!--          ID: {{item.size}}<br>-->
+<!--          {{item.deliverFrom}} &#8594; {{item.deliverTo}}<br>-->
+<!--          &lt;!&ndash;          Status: {{item.status}}&ndash;&gt;-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+</div>

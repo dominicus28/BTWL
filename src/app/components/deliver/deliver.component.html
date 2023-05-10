@@ -1,0 +1,33 @@
+<div class="parent">
+  <div class="div1">
+    <button mat-button class="menu-button" (click)="onPress()">
+      <mat-icon [inline]="true">menu</mat-icon>
+    </button>
+  </div>
+  <div class="div2">
+    <div class="title">Dostarczam paczkę</div>
+  </div>
+  <div class="div3">
+    <form ngNativeValidate id="deliver-option-form" #userForm="ngForm">
+      <h1>Miejsce odbioru:</h1>
+      <input ngModel required name="delivery" type="radio" id="address" value="address" (click)="setDeliveryProperty('address')">
+      <label for="address">Odbierz pod wybranym adresem</label>
+      <input ngModel required name="delivery" type="radio" id="bin" value="bin" (click)="setDeliveryProperty('bin')">
+      <label for="bin">Odbierz z paczkomatu</label>
+    </form>
+  </div>
+  <ng-container *ngIf="userForm.valid">
+    <div class="menu-render" *ngIf="display">
+      <app-menu></app-menu>
+    </div>
+    <div class="deliver-render" *ngIf="display_details=='address'">
+      <app-deliver-address></app-deliver-address>
+    </div>
+    <div class="deliver-render" *ngIf="display_details=='bin'">
+      <app-deliver-bin></app-deliver-bin>
+    </div>
+  </ng-container>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
+</div>

@@ -6,7 +6,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { SendComponent } from './components/send/send.component';
 import { SendDetailsComponent } from './components/send-details/send-details.component';
-import { ProfileComponent } from './components/profile/profile.component'
+import { ProfileComponent } from './components/profile/profile.component';
+import { DeliverComponent } from './components/deliver/deliver.component'
+import { PickupComponent } from './components/pickup/pickup.component'
 
 const routes: Routes = [
   { path: '', component: WelcomeAnimationComponent },
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'send', component: SendComponent },
   { path: 'send-details', component: SendDetailsComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'deliver', component: DeliverComponent },
+  { path: 'pickup', component: PickupComponent },
 ];
 
 @NgModule({

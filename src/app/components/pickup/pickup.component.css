@@ -17,20 +17,8 @@
   align-items: center;
   background-color: #FFFFFF;
 }
-
-label {
-  width: 90%;
-  margin: 0 auto;
-}
-
-form {
-  width: 100%;
-  height: 80%;
-  display: grid;
-}
-
 .div3 {
-  grid-area: 2 / 1 / 12 / 6;
+  grid-area: 2 / 1 / 13 / 6;
   text-align: center;
 }
 
@@ -39,27 +27,7 @@ form {
   text-align: center;
 }
 
-input[type=radio] {
-  display: none;
-}
-
-input[type=radio] + label {
-  padding: 20px;
-  border: 1px solid #ddd;
-  font-size: 4vmin;
-  border-radius: 4px;
-}
-
-input[type=radio]:checked + label{
-  background-color: #FFC000;
-}
-
-h1 {
-  text-align: left;
-  font-weight: normal;
-}
-
-.send-button {
+.search-button {
   background-color: #FFC000;
   font-size: 8vmin;
   border-radius: 4px;
@@ -74,22 +42,32 @@ button {
   font-size: 10vmin;
 }
 
+.search-input {
+  width: 90%;
+  font-size: 6vmin;
+  border: 0;
+}
+
 .title {
   width: 100%;
   text-align: center;
   font-size: 6vmin;
 }
 
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 2fr);
+  border-radius: 6px;
+  background-color: #FFFFFF;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
 .menu-render {
   background-color: #FFFFFF;
   grid-area: 2 / 1 / 13 / 4;
-}
-
-.send-render {
-  background-color: #f8f8f8;
-  width: 100%;
-  height: 100%;
-  grid-area: 1 / 1 / 13 / 6;
 }
 
 mat-icon {

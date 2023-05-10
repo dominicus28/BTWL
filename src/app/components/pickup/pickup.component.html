@@ -1,0 +1,21 @@
+<div class="parent">
+  <div class="div1">
+    <button mat-button class="menu-button" (click)="onPress()">
+      <mat-icon [inline]="true">menu</mat-icon>
+    </button>
+  </div>
+  <div class="div2">
+    <div class="title">Odbieram paczkę</div>
+  </div>
+  <div class="div3">
+    <form #userForm="ngForm" id="search-form" (ngSubmit)="getSearchFormData(userForm.value)">
+      <br><input class="search-input" ngModel name="search" id="search" type="search" placeholder="Wprowadź adres MAC">
+    </form>
+  </div>
+  <div class="div4">
+    <input class="search-button" type="submit" form="search-form" value="Odbierz">
+  </div>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
+</div>
