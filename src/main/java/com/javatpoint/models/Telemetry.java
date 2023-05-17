@@ -6,18 +6,24 @@ public class Telemetry {
     private double maxAcceleration;
     private double humidity;
     private String time;
+    private double longitude;
+    private String mac;
+    private double latitude;
 
     public Telemetry() {
         
     }
 
-    public Telemetry(float temperature, int batteryStatus, double maxAcceleration, double humidity, String time) {
-        super();
+    public Telemetry(float temperature, int batteryStatus, double maxAcceleration, double humidity, String time,
+            double longitude, String mac, double latitude) {
         this.temperature = temperature;
         this.batteryStatus = batteryStatus;
         this.maxAcceleration = maxAcceleration;
         this.humidity = humidity;
         this.time = time;
+        this.longitude = longitude;
+        this.mac = mac;
+        this.latitude = latitude;
     }
 
     public int getBatteryStatus() {
@@ -60,4 +66,27 @@ public class Telemetry {
         this.time = time;
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getMac() {
+        return mac;
+    }
+
+    public void setMac(String mac) {
+        this.mac = mac;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 }

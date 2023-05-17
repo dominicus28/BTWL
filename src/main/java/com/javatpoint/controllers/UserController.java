@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.javatpoint.models.User;
 import com.javatpoint.repositories.UserRepository;
-import com.javatpoint.services.IUserService;  
+//import com.javatpoint.services.IUserService;  
 
 @RestController  
 public class UserController {  
     @Autowired  
-    private IUserService userService;  
+    //private IUserService userService;  
 
     private final UserRepository userRepository;
 
@@ -33,6 +33,7 @@ public class UserController {
 
     @PostMapping("/users")
     User createUser(@RequestBody User newUser) {
+        //tu sprawdzenie
         return userRepository.save(newUser);
   }
 

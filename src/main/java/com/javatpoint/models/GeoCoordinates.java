@@ -2,7 +2,7 @@ package com.javatpoint.models;
 
 public class GeoCoordinates {
     private double longitude;
-    private double elevation;
+    //private double elevation;
     private double latitude;
     private String time;
     
@@ -11,9 +11,8 @@ public class GeoCoordinates {
     }
 
     // Constructor
-    public GeoCoordinates(double longitude, double elevation, double latitude, String time) {
+    public GeoCoordinates(double longitude, double latitude, String time) {
         this.longitude = longitude;
-        this.elevation = elevation;
         this.latitude = latitude;
         this.time = time;
     }
@@ -25,14 +24,6 @@ public class GeoCoordinates {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
-    }
-
-    public double getElevation() {
-        return elevation;
-    }
-
-    public void setElevation(double elevation) {
-        this.elevation = elevation;
     }
 
     public double getLatitude() {
