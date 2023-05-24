@@ -11,6 +11,12 @@
 .div1 {
   grid-area: 1 / 1 / 2 / 2;
 }
+
+h2 {
+  text-align: left;
+  font-weight: normal;
+}
+
 .div2 {
   grid-area: 1 / 1 / 2 / 6;
   display: flex;

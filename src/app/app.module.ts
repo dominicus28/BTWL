@@ -22,7 +22,8 @@ import { PickupComponent } from './components/pickup/pickup.component';
 import { DeliverAddressComponent } from './components/deliver-address/deliver-address.component';
 import { DeliverBinComponent } from './components/deliver-bin/deliver-bin.component';
 import { DeliverComponent } from './components/deliver/deliver.component';
-import { BinsMapComponent } from './components/bins-map/bins-map.component'
+import { BinsMapComponent } from './components/bins-map/bins-map.component';
+import { ParcelDetailsComponent } from './components/parcel-details/parcel-details.component'
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { BinsMapComponent } from './components/bins-map/bins-map.component'
     DeliverAddressComponent,
     DeliverBinComponent,
     DeliverComponent,
-    BinsMapComponent
+    BinsMapComponent,
+    ParcelDetailsComponent
   ],
   imports: [
     BrowserModule,

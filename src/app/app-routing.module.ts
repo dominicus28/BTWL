@@ -7,8 +7,9 @@ import { HomeComponent } from './components/home/home.component';
 import { SendComponent } from './components/send/send.component';
 import { SendDetailsComponent } from './components/send-details/send-details.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { DeliverComponent } from './components/deliver/deliver.component'
-import { PickupComponent } from './components/pickup/pickup.component'
+import { DeliverComponent } from './components/deliver/deliver.component';
+import { PickupComponent } from './components/pickup/pickup.component';
+import { ParcelDetailsComponent } from './components/parcel-details/parcel-details.component'
 
 const routes: Routes = [
   { path: '', component: WelcomeAnimationComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'deliver', component: DeliverComponent },
   { path: 'pickup', component: PickupComponent },
+  { path: 'parcel-details/:id', component: ParcelDetailsComponent },
 ];
 
 @NgModule({

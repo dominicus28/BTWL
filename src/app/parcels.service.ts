@@ -13,6 +13,11 @@ export class ParcelsService {
     return this.http.get(url);
   }
 
+  getParcelDetails() {
+    let url="http://ec2-44-199-249-212.compute-1.amazonaws.com/telemetries/6452ed8fef300344f2ebc5a3";
+    return this.http.get(url);
+  }
+
   getParcelsFromAddress() {
     let url="http://localhost:8080/delivery/from-address";
     return this.http.get(url);

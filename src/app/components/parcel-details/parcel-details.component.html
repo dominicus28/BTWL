@@ -1,0 +1,25 @@
+<div class="parent">
+  <div class="div1">
+    <button mat-button class="menu-button" (click)="onPress()">
+      <mat-icon [inline]="true">menu</mat-icon>
+    </button>
+  </div>
+  <div class="div2">
+    <div class="title">Szczegóły paczki</div>
+  </div>
+  <div class="div3">
+    Temperatura: {{data.temperature}}<br>
+    Bateria: {{data.batteryStatus}}%<br>
+    Maksymalne przyspieszenie: {{data.maxAcceleration}}<br>
+    Wilgotność: {{data.humidity}}%<br>
+    Adres MAC BlackBoxa: {{data.mac}}<br>
+  </div>
+  <div class="div4">
+    <div class="map-frame">
+      <div id="map"></div>
+    </div>
+  </div>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
+</div>

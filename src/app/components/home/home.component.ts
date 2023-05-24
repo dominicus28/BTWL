@@ -24,7 +24,7 @@ export class HomeComponent {
       id: 110043,
       from: "Wrocław",
       destination: "Leśnica",
-      status: "w drodze"
+      status: "czeka na umieszczenie w BlackBoxie"
     },
     {
       to: "Mirosław Close",
