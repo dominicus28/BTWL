@@ -7,9 +7,12 @@ public class Parcel {
     private String deliverFrom;
     private String deliverTo;
     private float insurance;    // ubezpieczenie
-    private HashMap<String, String> status;
     private User sender;
     private User receiver;
+    private User courier;
+    private HashMap<Integer, Telemetry> telemetry;
+    private HashMap<Integer, Alarm> alarm;
+    private HashMap<Integer, Status> status;
 
     //default constructor  
     public Parcel () {
@@ -17,15 +20,19 @@ public class Parcel {
     }
 
     //constructor using fields
-    public Parcel(char size, String deliverFrom, String deliverTo, float insurance, HashMap<String, String> status, User receiver,
-            User sender) {
+    public Parcel(char size, String deliverFrom, String deliverTo, float insurance, User sender, User receiver,
+            User courier, HashMap<Integer, Telemetry> telemetry, HashMap<Integer, Alarm> alarm,
+            HashMap<Integer, Status> status) {
         this.size = size;
         this.deliverFrom = deliverFrom;
         this.deliverTo = deliverTo;
         this.insurance = insurance;
-        this.status = status;
-        this.receiver = receiver;
         this.sender = sender;
+        this.receiver = receiver;
+        this.courier = courier;
+        this.telemetry = telemetry;
+        this.alarm = alarm;
+        this.status = status;
     }
 
     //getters and setters  
@@ -54,12 +61,7 @@ public class Parcel {
     public void setInsurance(float insurance) {
         this.insurance = insurance;
     }
-    public HashMap<String, String> getStatus() {
-        return status;
-    }
-    public void setStatus(HashMap<String, String> status) {
-        this.status = status;
-    }
+
         public User getSender() {
         return sender;
     }
@@ -71,5 +73,59 @@ public class Parcel {
     }
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+    }
+    public User getCourier() {
+        return courier;
+    }
+    public void setCourier(User courier) {
+        this.courier = courier;
+    }
+
+    /* Telemetry */
+    public HashMap<Integer, Telemetry> getTelemetry() {
+        return telemetry;
+    }
+    public void setTelemetry(HashMap<Integer, Telemetry> telemetry) {
+        this.telemetry = telemetry;
+    }
+
+    public void addTelemetry(Telemetry newTelemetry) {
+        telemetry.put(telemetry.size() + 1, newTelemetry);
+    }
+
+    public void getLastTelemetry() {
+        telemetry.get(telemetry.size() - 1);
+    }
+
+    /* Alarm */
+    public HashMap<Integer, Alarm> getAlarm() {
+        return alarm;
+    }
+    public void setAlarm(HashMap<Integer, Alarm> alarm) {
+        this.alarm = alarm;
+    }
+
+    public void addAlarm(Alarm newAlarm) {
+        alarm.put(alarm.size() + 1, newAlarm);
+    }
+
+    public void getLastAlarm() {
+        alarm.get(alarm.size() - 1);
+    }
+    
+    /* Status */
+    public HashMap<Integer, Status> getStatus() {
+        return status;
+    }
+    public void setStatus(HashMap<Integer, Status> status) {
+        this.status = status;
+    }
+
+    public void addStatus(Status newStatus) {
+        status.put(status.size() + 1, newStatus);
+    }
+
+    public void getLastStatus() {
+        status.get(status.size() - 1);
     }
 }
