@@ -1,13 +1,19 @@
 package com.javatpoint.models;
 
+//import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+
 public class User {
+    
+    @Id
+    @Indexed(unique = true)
+    private String login;
+    private String email;
     private String name;
     private String surname;
-    private String email;
     private String password;
-    private String phNumber;
-    private Role role;
-    
+    private String phNumber;    
 
     //default constructor
     public User() {
@@ -15,7 +21,7 @@ public class User {
     }
     //constructor using fields
     public User(String name, String surname, String email, 
-                String password, String phNumber, Role role)
+                String password, String phNumber)
     {
         super();
         this.name = name;
@@ -23,10 +29,15 @@ public class User {
         this.email = email;
         this.password = password;
         this.phNumber = phNumber;
-        this.role = role;
 
     }
     //getters and setters
+    public String getLogin() {
+        return login;
+    }
+    public void setLogin(String login) {
+        this.login = login;
+    }
     public String getName() {
         return name;
     }
@@ -56,11 +67,5 @@ public class User {
     }
     public void setPhNumber(String phNumber) {
         this.phNumber = phNumber;
-    }
-    public Role getRole() {
-        return role;
-    }
-    public void setRole(Role role) {
-        this.role = role;
     }
 }

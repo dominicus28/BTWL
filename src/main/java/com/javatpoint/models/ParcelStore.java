@@ -1,21 +1,20 @@
 package com.javatpoint.models;
 
-public class ParcelStore {
+public class ParcelStore extends Place{
     private GeoCoordinates location;
-    private DeliveryStatus status;
-    private String address;
-    private int identifier;
+    private String nr;
+    // private int identifier;
 
     public ParcelStore () {
     
     }
 
     // Constructor
-    public ParcelStore(GeoCoordinates location, DeliveryStatus status, String address, int identifier) {
+    public ParcelStore(GeoCoordinates location, String nr, int identifier) {
         this.location = location;
-        this.status = status;
-        this.address = address;
-        this.identifier = identifier;
+
+        this.nr = nr;
+        // this.identifier = identifier;
     }
 
     // Getters and Setters
@@ -27,27 +26,19 @@ public class ParcelStore {
         this.location = location;
     }
     
-    public DeliveryStatus getStatus() {
-        return status;
+    public String getNr() {
+        return nr;
     }
 
-    public void setStatus(DeliveryStatus status) {
-        this.status = status;
-    }
-    
-    public String getAddress() {
-        return address;
+    public void setNr(String nr) {
+        this.nr = nr;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    // public int getIdentifier() {
+    //     return identifier;
+    // }
 
-    public int getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(int identifier) {
-        this.identifier = identifier;
-    }
+    // public void setIdentifier(int identifier) {
+    //     this.identifier = identifier;
+    // }
 }

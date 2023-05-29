@@ -1,18 +1,35 @@
 package com.javatpoint.models;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.util.HashMap;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
+// import java.util.HashMap;
+
+@Document
 public class Parcel {
+    @Id
+    @JsonSerialize(using= ToStringSerializer.class)
+    private ObjectId id;
     private char size;  // A or B or C
-    private String deliverFrom;
-    private String deliverTo;
+    @DocumentReference
+    private Place deliverFrom;
+    @DocumentReference
+    private Place deliverTo;
     private float insurance;    // ubezpieczenie
+    @DocumentReference
     private User sender;
+    @DocumentReference
     private User receiver;
+    @DocumentReference
     private User courier;
-    private HashMap<Integer, Telemetry> telemetry;
-    private HashMap<Integer, Alarm> alarm;
-    private HashMap<Integer, Status> status;
+    @DocumentReference
+    private Box box;
+
+    
 
     //default constructor  
     public Parcel () {
@@ -20,9 +37,9 @@ public class Parcel {
     }
 
     //constructor using fields
-    public Parcel(char size, String deliverFrom, String deliverTo, float insurance, User sender, User receiver,
-            User courier, HashMap<Integer, Telemetry> telemetry, HashMap<Integer, Alarm> alarm,
-            HashMap<Integer, Status> status) {
+    public Parcel(char size, Place deliverFrom, Place deliverTo, float insurance, User sender, User receiver,
+                User courier, Box box, Telemetry telemetry, Alarm alarm,
+                Status status) {
         this.size = size;
         this.deliverFrom = deliverFrom;
         this.deliverTo = deliverTo;
@@ -30,12 +47,18 @@ public class Parcel {
         this.sender = sender;
         this.receiver = receiver;
         this.courier = courier;
-        this.telemetry = telemetry;
-        this.alarm = alarm;
-        this.status = status;
+        this.box = box;
+        // this.telemetry = telemetry;
+        // this.alarm = alarm;
+        // this.status = status;
+        
     }
 
     //getters and setters  
+
+    public ObjectId getId() {
+        return id;
+    }
 
     public char getSize() {
         return size;
@@ -43,16 +66,16 @@ public class Parcel {
     public void setSize(char size) {  
         this.size = size;  
     }
-    public String getDeliverFrom() {
+    public Place getDeliverFrom() {
         return deliverFrom;
     }
-    public void setDeliverFrom(String deliverFrom) {
+    public void setDeliverFrom(Place deliverFrom) {
         this.deliverFrom = deliverFrom;
     }
-    public String getDeliverTo() {
+    public Place getDeliverTo() {
         return deliverTo;
     }
-    public void setDeliverTo(String deliverTo) {
+    public void setDeliverTo(Place deliverTo) {
         this.deliverTo = deliverTo;
     }
     public float getInsurance() {
@@ -61,71 +84,78 @@ public class Parcel {
     public void setInsurance(float insurance) {
         this.insurance = insurance;
     }
-
-        public User getSender() {
-        return sender;
-    }
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
     public User getReceiver() {
         return receiver;
     }
     public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
-    public User getCourier() {
+    public User getcCourier() {
         return courier;
     }
     public void setCourier(User courier) {
         this.courier = courier;
     }
+    public User getSender() {
+        return sender;
+    }
 
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public Box getBox() {
+        return box;
+    }
+
+    public void setBox(Box box) {
+        this.box = box;
+    }
     /* Telemetry */
-    public HashMap<Integer, Telemetry> getTelemetry() {
-        return telemetry;
-    }
-    public void setTelemetry(HashMap<Integer, Telemetry> telemetry) {
-        this.telemetry = telemetry;
-    }
+    // public Telemetry getTelemetry() {
+    //     return telemetry;
+    // }
+    // public void setTelemetry(Telemetry telemetry) {
+    //     this.telemetry = telemetry;
+    // }
 
-    public void addTelemetry(Telemetry newTelemetry) {
-        telemetry.put(telemetry.size() + 1, newTelemetry);
-    }
+    // public void addTelemetry(Telemetry newTelemetry) {
+    //     telemetry.put(telemetry.size() + 1, newTelemetry);
+    // }
 
-    public void getLastTelemetry() {
-        telemetry.get(telemetry.size() - 1);
-    }
+    // public void getLastTelemetry() {
+    //     telemetry.get(telemetry.size() - 1);
+    // }
 
-    /* Alarm */
-    public HashMap<Integer, Alarm> getAlarm() {
-        return alarm;
-    }
-    public void setAlarm(HashMap<Integer, Alarm> alarm) {
-        this.alarm = alarm;
-    }
+    // /* Alarm */
+    // public Alarm getAlarm() {
+    //     return alarm;
+    // }
+    // public void setAlarm(Alarm alarm) {
+    //     this.alarm = alarm;
+    // }
 
-    public void addAlarm(Alarm newAlarm) {
-        alarm.put(alarm.size() + 1, newAlarm);
-    }
+    // public void addAlarm(Alarm newAlarm) {
+    //     alarm.put(alarm.size() + 1, newAlarm);
+    // }
 
-    public void getLastAlarm() {
-        alarm.get(alarm.size() - 1);
-    }
+    // public void getLastAlarm() {
+    //     alarm.get(alarm.size() - 1);
+    // }
     
-    /* Status */
-    public HashMap<Integer, Status> getStatus() {
-        return status;
-    }
-    public void setStatus(HashMap<Integer, Status> status) {
-        this.status = status;
-    }
+    // /* Status */
+    // public Status getStatus() {
+    //     return status;
+    // }
+    // public void setStatus(Status status) {
+    //     this.status = status;
+    // }
 
-    public void addStatus(Status newStatus) {
-        status.put(status.size() + 1, newStatus);
-    }
+    // public void addStatus(Status newStatus) {
+    //     status.put(status.size() + 1, newStatus);
+    // }
 
-    public void getLastStatus() {
-        status.get(status.size() - 1);
-    }
+    // public void getLastStatus() {
+    //     status.get(status.size() - 1);
+    // }
 }

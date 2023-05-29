@@ -12,8 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+
 import com.javatpoint.models.Telemetry;
 import com.javatpoint.models.Parcel;
+import com.javatpoint.repositories.ParcelCompleteRepository;
 import com.javatpoint.repositories.ParcelRepository;
 import com.javatpoint.repositories.TelemetryRepository;
 //import org.springframework.web.bind.annotation.PutMapping;
@@ -22,11 +28,13 @@ import com.javatpoint.repositories.TelemetryRepository;
 @RestController  
 public class TelemetryController {  
     private final TelemetryRepository telemetryRepository;
-    private final ParcelRepository parcelRepository;
+    private final ParcelCompleteRepository parcelCompleteRepository;
+    private final MongoTemplate mongoTemplate;
 
-    public TelemetryController(TelemetryRepository telemetryRepository, ParcelRepository parcelRepository) {
+    public TelemetryController(TelemetryRepository telemetryRepository, ParcelCompleteRepository parcelCompleteRepository, MongoTemplate mongoTemplate) {
         this.telemetryRepository = telemetryRepository;
-        this.parcelRepository = parcelRepository;
+        this.parcelCompleteRepository = parcelCompleteRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     /* Returns all telemetry data */
@@ -51,17 +59,21 @@ public class TelemetryController {
     /* Post new telemetry */
     @PostMapping("/telemetries")
     public Telemetry createTelemetry(@RequestBody Telemetry newTelemetry) {
-        return telemetryRepository.save(newTelemetry);
+        Telemetry tel = telemetryRepository.save(newTelemetry);
+        
+        Query query = new Query().addCriteria(Criteria.where("box").is(tel.getMac()));
+        Update update = new Update().addToSet("telemetry", newTelemetry);
+        return null; //TODO
     }
 
-    @PostMapping("parcels/{id}/telemetries")
-    public Parcel createTelemetry1(@RequestBody Telemetry newTelemetry, @PathVariable String id) {
-        Optional<Parcel> optionalParcel = parcelRepository.findById(id); 
-        Parcel parcel = optionalParcel.get();
-        parcel.addTelemetry(newTelemetry);
+    // @PostMapping("parcels/{id}/telemetries")
+    // public Parcel createTelemetry1(@RequestBody Telemetry newTelemetry, @PathVariable String id) {
+    //     Optional<Parcel> optionalParcel = parcelRepository.findById(id); 
+    //     Parcel parcel = optionalParcel.get();
+    //     parcel.addTelemetry(newTelemetry);
 
-        return parcelRepository.insert(parcel);
-    }
+    //     return parcelRepository.insert(parcel);
+    // }
 
     // /* Delete telemetry */
     // @DeleteMapping("/telemetries/{id}")

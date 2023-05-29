@@ -2,33 +2,22 @@ package com.javatpoint.models;
 
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-public class Alarm {
-    @DocumentReference
-    private String mac;
-    private char code;
+public class TimestampTelemetry extends TimestampObject {
+    // @DocumentReference
     private Telemetry telemetry;
 
-    public Alarm() {
-    }
+    public TimestampTelemetry() {}
 
-    public Alarm(char code, Telemetry telemetry) {
-        this.code = code;
+    public TimestampTelemetry(Telemetry telemetry) {
+        super();
         this.telemetry = telemetry;
-    }
-    
-    public char getCode() {
-        return code;
-    }
-    public void setCode(char code) {
-        this.code = code;
     }
 
     public Telemetry getTelemetry() {
         return telemetry;
     }
+
     public void setTelemetry(Telemetry telemetry) {
         this.telemetry = telemetry;
     }
-
-
 }
