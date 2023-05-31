@@ -1,12 +1,17 @@
 package com.javatpoint.models;
 
+import org.bson.types.ObjectId;
 //import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
     
     @Id
+    @JsonIgnore
+    private ObjectId id;
     @Indexed(unique = true)
     private String login;
     private String email;
@@ -30,6 +35,13 @@ public class User {
         this.password = password;
         this.phNumber = phNumber;
 
+    }
+    
+    public ObjectId getId() {
+        return id;
+    }
+    public void setId(ObjectId id) {
+        this.id = id;
     }
     //getters and setters
     public String getLogin() {

@@ -1,5 +1,7 @@
 package com.javatpoint.models;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 public class TimestampStatus extends TimestampObject {
@@ -10,6 +12,7 @@ public class TimestampStatus extends TimestampObject {
 
     public TimestampStatus(Status status) {
         super();
+        this.time = LocalDateTime.now();
         this.status = status;
     }
 

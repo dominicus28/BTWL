@@ -1,9 +1,8 @@
 package com.javatpoint.repositories;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.javatpoint.models.Place;
+import com.javatpoint.models.Region;
 
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -14,13 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Repository
-public class PlaceRepository {
+public class RegionRepository {
     @Autowired
     private final MongoTemplate mongoTemplate;
     
-    public PlaceRepository(MongoTemplate mongoTemplate) {
+    public RegionRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
-    // public Place findPlace()
+    public List<Region> findRegionByProvince(String province) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("province").is(province));
+        return mongoTemplate.find(query, Region.class);
+    }
 }

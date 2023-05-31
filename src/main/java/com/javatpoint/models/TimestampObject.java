@@ -2,10 +2,15 @@ package com.javatpoint.models;
 
 import java.time.LocalDateTime;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+
 // import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 public class TimestampObject {
-    private LocalDateTime time;
+    @Id
+    private ObjectId id;
+    protected LocalDateTime time;
     // @DocumentReference
     // private Object data;
 

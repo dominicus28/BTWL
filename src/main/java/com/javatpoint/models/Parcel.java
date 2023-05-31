@@ -15,9 +15,9 @@ public class Parcel {
     @JsonSerialize(using= ToStringSerializer.class)
     private ObjectId id;
     private char size;  // A or B or C
-    @DocumentReference
+    // @DocumentReference
     private Place deliverFrom;
-    @DocumentReference
+    // @DocumentReference
     private Place deliverTo;
     private float insurance;    // ubezpieczenie
     @DocumentReference
@@ -28,8 +28,6 @@ public class Parcel {
     private User courier;
     @DocumentReference
     private Box box;
-
-    
 
     //default constructor  
     public Parcel () {
@@ -90,7 +88,7 @@ public class Parcel {
     public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
-    public User getcCourier() {
+    public User getCourier() {
         return courier;
     }
     public void setCourier(User courier) {

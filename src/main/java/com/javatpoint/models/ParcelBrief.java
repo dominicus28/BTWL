@@ -2,14 +2,14 @@ package com.javatpoint.models;
 
 public class ParcelBrief {
     private Parcel parcel;
-    private TimestampObject telemetry;
-    private TimestampObject alarm;
-    private TimestampObject status;
+    private TimestampTelemetry telemetry;
+    private TimestampAlarm alarm;
+    private TimestampStatus status;
 
     public ParcelBrief() {}
 
-    public ParcelBrief(Parcel parcel, TimestampObject telemetry, 
-                    TimestampObject alarm, TimestampObject status) {
+    public ParcelBrief(Parcel parcel, TimestampTelemetry telemetry, 
+                    TimestampAlarm alarm, TimestampStatus status) {
         super();
         this.parcel = parcel;
         this.telemetry = telemetry;
@@ -25,27 +25,27 @@ public class ParcelBrief {
         this.parcel = parcel;
     }
 
-    public TimestampObject getTelemetry() {
+    public TimestampTelemetry getTelemetry() {
         return telemetry;
     }
 
-    public void setTelemetry(TimestampObject telemetry) {
+    public void setTelemetry(TimestampTelemetry telemetry) {
         this.telemetry = telemetry;
     }
 
-    public TimestampObject getAlarm() {
+    public TimestampAlarm getAlarm() {
         return alarm;
     }
 
-    public void setAlarm(TimestampObject alarm) {
+    public void setAlarm(TimestampAlarm alarm) {
         this.alarm = alarm;
     }
 
-    public TimestampObject getStatus() {
+    public TimestampStatus getStatus() {
         return status;
     }
 
-    public void setStatus(TimestampObject status) {
+    public void setStatus(TimestampStatus status) {
         this.status = status;
     }
 }

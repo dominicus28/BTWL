@@ -55,8 +55,8 @@ public class BoxController {
         return boxRepository.save(newBox);
     }
 
-    @GetMapping("/boxes")
-    public Box createBox(@RequestBody Box newBox) {
-        return boxRepository.save(newBox);
-    }
+    // @GetMapping("/boxes")
+    // public Box createBox(@RequestBody Box newBox) {
+    //     return boxRepository.save(newBox);
+    // }
 }

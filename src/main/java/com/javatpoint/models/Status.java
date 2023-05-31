@@ -1,10 +1,15 @@
 package com.javatpoint.models;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+
 //import java.util.List;
 
 //import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 public class Status {
+    @Id
+    private ObjectId id;
     private String status;
     private int code;
 

@@ -1,15 +1,20 @@
 package com.javatpoint.models;
 
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+
 public class Place {
+    @DocumentReference
     private Region region;
-    private Address address;
+    private String street;
+    private String nrOfHouse;   // and flat f.e. 35/24 or 35A
 
     public Place() {}
 
-    public Place(Region region, Address address) {
+    public Place(Region region, String street, String nrOfHouse) {
         super();
         this.region = region;
-        this.address = address;
+        this.street = street;
+        this.nrOfHouse = nrOfHouse;
     }
 
     public Region getRegion() {
@@ -19,11 +24,17 @@ public class Place {
         this.region = region;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getStreet() {
+        return street;
+    }
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public String getNrOfHouse() {
+        return nrOfHouse;
+    }
+    public void setNrOfHouse(String nrOfHouse) {
+        this.nrOfHouse = nrOfHouse;
     }
 }

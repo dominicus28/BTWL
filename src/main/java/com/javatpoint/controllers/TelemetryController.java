@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 // import java.util.Query;
 
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +18,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import com.javatpoint.models.Telemetry;
-import com.javatpoint.models.Parcel;
+// import com.javatpoint.models.Parcel;
 import com.javatpoint.repositories.ParcelCompleteRepository;
-import com.javatpoint.repositories.ParcelRepository;
+// import com.javatpoint.repositories.ParcelRepository;
 import com.javatpoint.repositories.TelemetryRepository;
 //import org.springframework.web.bind.annotation.PutMapping;
   
