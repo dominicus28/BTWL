@@ -1,33 +1,50 @@
 package com.javatpoint.models;
+// import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
+import java.util.ArrayList;
+//import java.time.LocalDateTime;
+//import java.util.HashMap;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 // import java.util.HashMap;
 
 @Document
 public class Parcel {
-    @Id
-    @JsonSerialize(using= ToStringSerializer.class)
-    private ObjectId id;
-    private char size;  // A or B or C
+    // @Id
+    @MongoId
+    // @JsonSerialize(using = ToStringSerializer.class)
+    // @JsonIgnore
+    protected ObjectId id;
+    protected char size;  // A or B or C
     // @DocumentReference
-    private Place deliverFrom;
+    public Place deliverFrom;
     // @DocumentReference
-    private Place deliverTo;
-    private float insurance;    // ubezpieczenie
+    public Place deliverTo;
+    protected float insurance;    // ubezpieczenie
     @DocumentReference
-    private User sender;
+    protected User sender;
     @DocumentReference
-    private User receiver;
+    protected User receiver;
     @DocumentReference
-    private User courier;
+    protected User courier;
     @DocumentReference
-    private Box box;
+    protected Box box;
 
     //default constructor  
     public Parcel () {
@@ -38,6 +55,8 @@ public class Parcel {
     public Parcel(char size, Place deliverFrom, Place deliverTo, float insurance, User sender, User receiver,
                 User courier, Box box, Telemetry telemetry, Alarm alarm,
                 Status status) {
+        
+        super();
         this.size = size;
         this.deliverFrom = deliverFrom;
         this.deliverTo = deliverTo;
@@ -53,9 +72,11 @@ public class Parcel {
     }
 
     //getters and setters  
-
     public ObjectId getId() {
         return id;
+    }
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public char getSize() {

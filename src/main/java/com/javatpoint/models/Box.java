@@ -33,9 +33,11 @@ public class Box {
     protected List <TimestampAlarm> alarm;
     // @DocumentReference
     // protected List <TimestampStatus> status;
-    @DocumentReference
+    // @DocumentReference
+    // @JsonIgnore
+    // protected List <Message> message;
     @JsonIgnore
-    protected List <Message> message;
+    public Message default_message = new Message(false, false);
     
     
 
@@ -47,7 +49,7 @@ public class Box {
         parcelComplete = null;
         this.telemetry = new ArrayList<>();
         this.alarm = new ArrayList<>();
-        this.message = new ArrayList<>();
+        // this.message = new ArrayList<>();
     }
 
     public ObjectId getId() {
@@ -67,6 +69,7 @@ public class Box {
         this.parcelComplete = parcelComplete;
     }
     
+    // @JsonIgnore
     public String getMac() {
 		return mac;
 	}
@@ -87,13 +90,13 @@ public class Box {
         this.alarm = alarm;
     }
 
-    public List<Message> getMessage() {
-        return message;
-    }
+    // public List<Message> getMessage() {
+    //     return message;
+    // }
 
-    public void setMessage(List<Message> message) {
-        this.message = message;
-    }
+    // public void setMessage(List<Message> message) {
+    //     this.message = message;
+    // }
 
     
 }

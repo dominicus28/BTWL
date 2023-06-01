@@ -87,6 +87,14 @@ public class ParcelComplete {
         this.status = status;
     }
 
+    public Message getMessage() {
+        return null;
+    }
+
+    public Message setMessage(Message message) {
+        return null;
+    }
+
     // MOVE TO THE REPOSITORY
     // public void addTelemetry(Telemetry newTimestampTelemetry) {
     //     // if(telemetry == null)
@@ -116,7 +124,12 @@ public class ParcelComplete {
     //     return alarm.get(alarm.size() - 1);
     // }
 
-    // public TimestampStatus getLastStatus() {
-    //     return status.get(status.size() - 1);
-    // }
+    @JsonIgnore
+    public TimestampStatus getLastStatus() {
+        if(status != null)
+            if(status.size() != 0)
+                return status.get(status.size() - 1);
+
+        return null;
+    }
 }

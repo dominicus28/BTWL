@@ -21,9 +21,30 @@ public class RegionRepository {
         this.mongoTemplate = mongoTemplate;
     }
 
+    // Show all regions
+    public List<Region> findAll() {
+        return mongoTemplate.findAll(Region.class);
+    }
+
     public List<Region> findRegionByProvince(String province) {
         Query query = new Query();
         query.addCriteria(Criteria.where("province").is(province));
         return mongoTemplate.find(query, Region.class);
+    }
+
+    public List<Region> findRegionByCity(String city) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("city").is(city));
+        return mongoTemplate.find(query, Region.class);
+    }
+
+    public Region findOneRegionByPostalCode(String postalCode) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("postalCode").is(postalCode));
+        return mongoTemplate.findOne(query, Region.class);
+    }
+
+    public Region save(Region region) {
+        return mongoTemplate.save(region);  //insert to table
     }
 }

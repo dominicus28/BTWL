@@ -133,4 +133,87 @@ public class ParcelCompleteRepository{
         Update update = new Update().set("courier.id", courierId);
         return mongoTemplate.findAndModify(query, update, Parcel.class);
     }
+
+    public int getCode(String id) {
+        TimestampStatus tSS = getLastStatus(id);
+        return tSS.getStatus().getCode();
+    }
+
+    /* code 1 */
+    public ParcelComplete_a2a setA2a_code1_idle_close_box_ack(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code1_idle_close_box_ack.ack", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+
+    /* code 3 */
+    /* open */
+    public ParcelComplete_a2a setA2a_code3_idle_open_courier_agree(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code3_idle_open_courier_agree", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+    // public boolean getA2a_code3_idle_open_courier_agree(String id) {
+    //     Query query = new Query();
+    //     query.addCriteria(Criteria.where("id").is(id));
+    //     ParcelComplete_a2a pCa2a = mongoTemplate.findOne(query, ParcelComplete_a2a.class);
+    //     return pCa2a.a2a_code3_idle_open_courier_agree;
+    // }
+    public ParcelComplete_a2a setA2a_code3_idle_open_box_ack(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code3_idle_open_box_ack.ack", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+    /* close and protect */
+    public ParcelComplete_a2a setA2a_code3_protect_close_sender_agree(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code3_protect_close_sender_agree", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+    public ParcelComplete_a2a setA2a_code3_protect_close_box_ack(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code3_protect_close_box_ack.ack", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+
+    /* code 5 */
+    /* go idle and open */
+    public ParcelComplete_a2a setA2a_code5_idle_open_receiver_agree(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code5_idle_open_receiver_agree", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+    public ParcelComplete_a2a setA2a_code5_idle_open_courier_agree(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code5_idle_open_courier_agree", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+    public ParcelComplete_a2a setA2a_code5_idle_open_box_ack(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code5_idle_open_box_ack.ack", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+    /* end */
+    public ParcelComplete_a2a setA2a_code5_end_open_receiver_agree(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code5_end_open_receiver_agree", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+    public ParcelComplete_a2a setA2a_code5_end_box_ack(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Update update = new Update().set("a2a_code5_end_box_ack.ack", true);
+        return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
+    }
+
+    
 }

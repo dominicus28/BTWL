@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import com.javatpoint.models.Box;
+import com.javatpoint.models.Message;
 import com.javatpoint.repositories.BoxRepository;
 //import org.springframework.web.bind.annotation.PutMapping;
   
@@ -39,12 +42,12 @@ public class BoxController {
     }
 
     /* Get a particular Box */
-    @GetMapping(value = "/boxes/{id}")
-    public Box getBox(@PathVariable String id)
+    @GetMapping(value = "/boxes/{mac}")
+    public Box getBox(@PathVariable String mac)
     {
         Query query = new Query();
         
-        query.addCriteria(Criteria.where("id").is(id));
+        query.addCriteria(Criteria.where("mac").is(mac));
         
         return mongoTemplate.findOne(query, Box.class);
     }
@@ -52,6 +55,21 @@ public class BoxController {
     /* Post new Box */
     @PostMapping("/boxes")
     public Box createBox(@RequestBody Box newBox) {
+        return boxRepository.save(newBox);
+    }
+
+    /* Get the requested operation */
+    @GetMapping("/boxes/{mac}/idle")
+    public ResponseEntity idleBox(@PathVariable String mac) {
+        Box box = boxRepository.findOne(mac);
+        return new ResponseEntity<Message>(box.getParcelComplete().getMessage(), null, HttpStatus.OK);
+    }
+
+    /* Put response to the requested operation */
+    @PutMapping("/boxes/{mac}/idle")
+    public ResponseEntity idleBox(@PathVariable String mac, @RequestBody Message message) {
+        Box box = boxRepository.findOne(mac);
+        box.getParcelComplete().get
         return boxRepository.save(newBox);
     }
 

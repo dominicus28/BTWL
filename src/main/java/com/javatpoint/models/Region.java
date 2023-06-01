@@ -1,6 +1,20 @@
 package com.javatpoint.models;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Region {
+    @Id
+    @JsonIgnore
+    protected ObjectId id;
+    public ObjectId getId() {
+        return id;
+    }
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
     private String country;
     private String province;
     private String city;

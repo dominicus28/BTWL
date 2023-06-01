@@ -6,7 +6,7 @@ public class Message {
 
     private boolean ack;
 
-    public boolean isAck() {
+    public boolean getAck() {
         return ack;
     }
 
