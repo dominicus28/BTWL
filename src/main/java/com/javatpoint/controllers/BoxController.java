@@ -93,7 +93,7 @@ public class BoxController {
     }
 
     /* Put response to the requested operation */
-    @PutMapping("/boxes/{mac}/answer")
+    @PostMapping("/boxes/{mac}/answer")
     public ResponseEntity idleBox(@PathVariable String mac, @RequestBody Message message) {
         Box box = boxRepository.findOne(mac);
 
