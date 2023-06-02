@@ -123,7 +123,7 @@ public class ParcelController {
     } 
 
     // Find parcels by city
-    @GetMapping(value = "/cities/{cityName}/parcels")
+    // @GetMapping(value = "/cities/{cityName}/parcels")
     // public List<Parcel> getParcelsbyCity(@PathVariable String cityName)  // Wroclaw
     // {
     //     return parcelRepository.findParcelsToAssignbyCity(cityName);
