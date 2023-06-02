@@ -76,9 +76,9 @@ public class ParcelCompleteRepository{
         return null;
     }
 
-    public TimestampStatus getLastStatus(String id) {
+    public TimestampStatus getLastStatus(String pId) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("id").is(id.toString()));
+        query.addCriteria(Criteria.where("parcel.id").is(pId.toString()));
         ParcelComplete pC = mongoTemplate.findOne(query, ParcelComplete.class);
         List<TimestampStatus> status = pC.getStatus(); // pobierz całą listę Statusów
         if(status != null) 
@@ -110,7 +110,7 @@ public class ParcelCompleteRepository{
 
     public ParcelComplete_a2a findOneParcelComplete_a2aByParcel(String parcelId) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("parcel").is(parcelId));
+        query.addCriteria(Criteria.where("parcel.id").is(parcelId));
         return mongoTemplate.findOne(query, ParcelComplete_a2a.class);
     }
 
@@ -137,6 +137,12 @@ public class ParcelCompleteRepository{
     public int getCode(String id) {
         TimestampStatus tSS = getLastStatus(id);
         return tSS.getStatus().getCode();
+    }
+
+    public ParcelComplete_a2a findOneParcelComplete_a2a(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        return mongoTemplate.findOne(query, ParcelComplete_a2a.class);
     }
 
     /* code 1 */

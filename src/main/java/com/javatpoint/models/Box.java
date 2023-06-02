@@ -36,10 +36,18 @@ public class Box {
     // @DocumentReference
     // @JsonIgnore
     // protected List <Message> message;
-    @JsonIgnore
-    public Message default_message = new Message(false, false);
+    // @JsonIgnore
+    // static private final Message default_message = new Message(false, false);
     
     
+
+    // public static Message getDefault_message() {
+    //     return default_message;
+    // }
+
+    // public static void setDefault_message(Message default_message) {
+    //     Box.default_message = default_message;
+    // }
 
     public Box() {}
 

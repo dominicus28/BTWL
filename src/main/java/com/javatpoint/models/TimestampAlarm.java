@@ -1,7 +1,9 @@
 package com.javatpoint.models;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+@Document
 public class TimestampAlarm extends TimestampObject {
     @DocumentReference
     private Alarm alarm;

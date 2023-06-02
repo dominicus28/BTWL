@@ -1,5 +1,8 @@
 package com.javatpoint.models;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Message {
     private boolean protect;
     private boolean open;
@@ -10,18 +13,26 @@ public class Message {
         return ack;
     }
 
-    public void setAck(boolean ack) {
-        this.ack = ack;
+    public void setAck() {
+        this.ack = true;
     }
 
-    public Message() {}
+    // public void setAck(boolean ack) {
+    //     this.ack = ack;
+    // }
+
+    public Message() {
+        protect = false;
+        open = false;
+    }
 
     public Message(boolean protect, boolean open) {
+        super();
         this.open = open;
         this.protect = protect;
     }
 
-    public boolean isOpen() {
+    public boolean getOpen() {
         return open;
     }
 
@@ -29,7 +40,7 @@ public class Message {
         this.open = open;
     }
 
-    public boolean isProtect() {
+    public boolean getProtect() {
         return protect;
     }
 

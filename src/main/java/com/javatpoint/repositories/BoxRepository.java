@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import com.javatpoint.models.Box;
 import com.javatpoint.models.ParcelComplete;
+import com.javatpoint.models.TimestampAlarm;
+import com.javatpoint.models.TimestampTelemetry;
 
 @Repository
 public class BoxRepository {
@@ -47,6 +49,27 @@ public class BoxRepository {
         Query query = new Query();
         query.addCriteria(Criteria.where("mac").is(mac));
         Update update = new Update().set("parcelComplete.id", parcelCompleteId);
+        return mongoTemplate.findAndModify(query, update, Box.class);
+    }
+
+    public Box setParcelCompleteNull(String mac) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("mac").is(mac));
+        Update update = new Update().set("parcelComplete", null);
+        return mongoTemplate.findAndModify(query, update, Box.class);
+    }
+
+    public Box addTelemetry(String mac, TimestampTelemetry newTimestampTelemetry) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("mac").is(mac));
+        Update update = new Update().addToSet("telemetry", newTimestampTelemetry);
+        return mongoTemplate.findAndModify(query, update, Box.class);
+    }
+
+    public Box addAlarm(String mac, TimestampAlarm newTimestampAlarm) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("mac").is(mac));
+        Update update = new Update().addToSet("alarm", newTimestampAlarm);
         return mongoTemplate.findAndModify(query, update, Box.class);
     }
 }

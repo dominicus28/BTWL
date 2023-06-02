@@ -13,6 +13,14 @@ public class Status {
     private String status;
     private int code;
 
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
     public int getCode() {
         return code;
     }

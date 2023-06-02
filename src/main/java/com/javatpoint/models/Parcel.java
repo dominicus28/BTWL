@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Parcel {
     // @Id
     @MongoId
-    // @JsonSerialize(using = ToStringSerializer.class)
+    @JsonSerialize(using = ToStringSerializer.class)
     // @JsonIgnore
     protected ObjectId id;
     protected char size;  // A or B or C

@@ -56,15 +56,15 @@ public class TelemetryController {
         return telemetry;  
     } 
 
-    /* Post new telemetry */
-    @PostMapping("/telemetries")
-    public Telemetry createTelemetry(@RequestBody Telemetry newTelemetry) {
-        Telemetry tel = telemetryRepository.save(newTelemetry);
+    // /* Post new telemetry */
+    // @PostMapping("/telemetries")
+    // public Telemetry createTelemetry(@RequestBody Telemetry newTelemetry) {
+    //     Telemetry tel = telemetryRepository.save(newTelemetry);
         
-        Query query = new Query().addCriteria(Criteria.where("box").is(tel.getMac()));
-        Update update = new Update().addToSet("telemetry", newTelemetry);
-        return null; //TODO
-    }
+    //     Query query = new Query().addCriteria(Criteria.where("box").is(tel.getMac()));
+    //     Update update = new Update().addToSet("telemetry", newTelemetry);
+    //     return null; //TODO
+    // }
 
     // @PostMapping("parcels/{id}/telemetries")
     // public Parcel createTelemetry1(@RequestBody Telemetry newTelemetry, @PathVariable String id) {

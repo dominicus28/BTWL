@@ -3,13 +3,13 @@ package com.javatpoint.models;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 public class Telemetry {
-    @DocumentReference
-    private String mac;
+    // @DocumentReference
+    // private String mac;
     private float temperature;
     private int batteryStatus;    // %
     private double maxAcceleration;
     private double humidity;
-    private int time;
+    private String time;
     private double longitude;
     private double latitude;
 
@@ -17,15 +17,15 @@ public class Telemetry {
         
     }
 
-    public Telemetry(float temperature, int batteryStatus, double maxAcceleration, double humidity, int time,
-            double longitude, String mac, double latitude) {
+    public Telemetry(float temperature, int batteryStatus, double maxAcceleration, double humidity, String time,
+            double longitude, double latitude) {
         this.temperature = temperature;
         this.batteryStatus = batteryStatus;
         this.maxAcceleration = maxAcceleration;
         this.humidity = humidity;
         this.time = time;
         this.longitude = longitude;
-        this.mac = mac;
+        // this.mac = mac;
         this.latitude = latitude;
     }
 
@@ -61,11 +61,11 @@ public class Telemetry {
         this.humidity = humidity;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -77,13 +77,13 @@ public class Telemetry {
         this.longitude = longitude;
     }
 
-    public String getMac() {
-        return mac;
-    }
+    // public String getMac() {
+    //     return mac;
+    // }
 
-    public void setMac(String mac) {
-        this.mac = mac;
-    }
+    // public void setMac(String mac) {
+    //     this.mac = mac;
+    // }
 
     public double getLatitude() {
         return latitude;

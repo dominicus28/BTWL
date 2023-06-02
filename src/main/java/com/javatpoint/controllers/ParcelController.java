@@ -109,7 +109,7 @@ public class ParcelController {
     {
         Query query = new Query();
         
-        query.addCriteria(Criteria.where("parcel").is(id));//parcel.id
+        query.addCriteria(Criteria.where("parcel.id").is(id));//parcel.id
         
         return mongoTemplate.findOne(query, ParcelComplete.class);
     }
@@ -122,11 +122,11 @@ public class ParcelController {
         return telemetries;
     } 
 
-    // find parcels by region (city)
-    // @GetMapping(value = "/regions/{cityName}/parcels")
+    // Find parcels by city
+    @GetMapping(value = "/cities/{cityName}/parcels")
     // public List<Parcel> getParcelsbyCity(@PathVariable String cityName)  // Wroclaw
     // {
-    //     return parcelRepository.findParcelsbyCity(cityName);
+    //     return parcelRepository.findParcelsToAssignbyCity(cityName);
     // }
 
     /* Create new parcel of a2a type - sender 
@@ -189,31 +189,34 @@ public class ParcelController {
     /* Accept a job - courier 
      * Parcel waits for a courier to arrive - code 3
     */
-    // @PutMapping("/parcels/a2a/{id}/courier/1/accept")
-    // public ResponseEntity courierAcceptParcel(@PathVariable String id, @RequestBody User newCourier) {
-    //     /* Find parcel */
-    //     ParcelComplete pC = parcelCompleteRepository.findOneByParcel(id);
-    //     User courier = userRepository.findOne(newCourier.getLogin());
-    //     /* Get last status */
-    //     TimestampStatus tsStat1 = parcelCompleteRepository.getLastStatus(id);
-
-    //     if(pC == null)
-    //         return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find parcel with id: " + id), null, HttpStatus.NOT_FOUND);
-    //     else if(courier == null) 
-    //         return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find courier with login: " + newCourier.getLogin()), null, HttpStatus.NOT_FOUND);
-    //     else if(pC.getParcel().getCourier() != null)
-    //         return new ResponseEntity<ErrorMessage>(new ErrorMessage("This parcel already has a courier"), null, HttpStatus.METHOD_NOT_ALLOWED);
-    //         else if(tsStat1.getStatus().getCode() != 1)
-    //     return new ResponseEntity<ErrorMessage>(new ErrorMessage("This method is not allowed while parcel has status: " + tsStat1.getStatus().getStatus()), null, HttpStatus.METHOD_NOT_ALLOWED);
+    @PutMapping("/parcels/a2a/{id}/courier/1/accept")
+    public ResponseEntity courierAcceptParcel(@PathVariable String id, @RequestBody User newCourier) {
+        /* Find parcel */
+        ParcelComplete pC = parcelCompleteRepository.findOneByParcel(id);
+        User courier = userRepository.findOne(newCourier.getLogin());
         
-    //         /* Get id of the status code 3 */
-    //     Status stat = statusRepository.find(3);
-    //     TimestampStatus tsStat = tsStatusRepository.save(new TimestampStatus(stat));//TODO
-    //     parcelCompleteRepository.addStatus(pC.getId().toString(), tsStat);
-    //     parcelCompleteRepository.setCourier(pC.getParcel().getId().toString(), courier);//TODO move to ParcelRepository
 
-    //     return new ResponseEntity<ParcelComplete>(parcelCompleteRepository.findOne(pC.getId().toString()), null, HttpStatus.OK);
-    // }
+        if(pC == null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find parcel with id: " + id), null, HttpStatus.NOT_FOUND);
+        else if(courier == null) 
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find courier with login: " + newCourier.getLogin()), null, HttpStatus.NOT_FOUND);
+        
+        /* Get last status */
+        TimestampStatus tsStat1 = parcelCompleteRepository.getLastStatus(id);
+
+        if(pC.getParcel().getCourier() != null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("This parcel already has a courier"), null, HttpStatus.METHOD_NOT_ALLOWED);
+            else if(tsStat1.getStatus().getCode() != 1)
+        return new ResponseEntity<ErrorMessage>(new ErrorMessage("This method is not allowed while parcel has status: " + tsStat1.getStatus().getStatus()), null, HttpStatus.METHOD_NOT_ALLOWED);
+        
+            /* Get id of the status code 3 */
+        Status stat = statusRepository.find(3);
+        TimestampStatus tsStat = tsStatusRepository.save(new TimestampStatus(stat));//TODO
+        parcelCompleteRepository.addStatus(pC.getId().toString(), tsStat);
+        parcelCompleteRepository.setCourier(pC.getParcel().getId().toString(), courier);//TODO move to ParcelRepository
+
+        return new ResponseEntity<ParcelComplete>(parcelCompleteRepository.findOne(pC.getId().toString()), null, HttpStatus.OK);
+    }
 
     /* Assign a box to the parcel - courier
      * Parcel waits for a courier to arrive - set code 3
@@ -230,10 +233,13 @@ public class ParcelController {
             return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find parcel with id: " + id), null, HttpStatus.NOT_FOUND);
         else if(box == null)
             return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find box with MAC: " + newBox.getMac()), null, HttpStatus.NOT_FOUND);
-        else if(parcelComplete.getParcel().getBox() != null)
-            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Some box has already been assigned"), null, HttpStatus.METHOD_NOT_ALLOWED);
         else if(tsStat1.getStatus().getCode() != 3)
             return new ResponseEntity<ErrorMessage>(new ErrorMessage("This method is not allowed while parcel has status: " + tsStat1.getStatus().getStatus()), null, HttpStatus.METHOD_NOT_ALLOWED);
+        else if(parcelComplete.getParcel().getBox() != null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Some box has already been assigned"), null, HttpStatus.METHOD_NOT_ALLOWED);
+        else if(box.getParcelComplete() != null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("This box has already been assigned"), null, HttpStatus.METHOD_NOT_ALLOWED);
+        
         
         boxRepository.setParcelComplete(box.getMac(), parcelComplete);
         parcelRepository.setBox(id, box);
@@ -259,166 +265,120 @@ public class ParcelController {
 
         /* Set courier open */
         parcelCompleteRepository.setA2a_code3_idle_open_courier_agree(parcelComplete.getId().toString());
-        return new ResponseEntity<ErrorMessage>(new ErrorMessage("Message to box is being sent"), null, HttpStatus.OK);
+        //TODO do check
+        return new ResponseEntity<ErrorMessage>(new ErrorMessage("Message to the box is being sent"), null, HttpStatus.OK);
     }
 
-    // /* Confirm that box has been closed - sender
-    //  * Parcel awaits to be delivered to receiver - set code 5
-    //  * Box open status should be cleaned by now
-    //  */
-    // @PutMapping("/parcels/a2a/{id}/sender/3/box/protect")
-    // public ParcelComplete senderCloseParcel(@PathVariable String id) {
-    //     // /* Find parcel */
-    //     // Query query = new Query();
-    //     // query.addCriteria(Criteria.where("id").is(id));
-    //     // Parcel parcel = mongoTemplate.findOne(query, Parcel.class);
+    /* Confirm that box has been closed - sender
+     * Parcel awaits to be delivered to receiver - set code 5
+     * Box open status should be cleaned by now
+     */
+    @PutMapping("/parcels/a2a/{id}/sender/3/box/protect")
+    public ResponseEntity senderCloseParcel(@PathVariable String id) {
+        /* Find parcel complete */
+        ParcelComplete_a2a parcelComplete = parcelCompleteRepository.findOneParcelComplete_a2aByParcel(id);
+        /* Get last status */
+        TimestampStatus tsStat1 = parcelCompleteRepository.getLastStatus(id);
 
-    //     /* Get full parcel data */
-    //     Query query1 = new Query();
-    //     query1.addCriteria(Criteria.where("parcel").is(id));
-    //     ParcelComplete_a2a recComplete = mongoTemplate.findOne(query1, ParcelComplete_a2a.class);
+        if(parcelComplete == null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find parcel with id: " + id), null, HttpStatus.NOT_FOUND);
+        else if(parcelComplete.getParcel().getBox() == null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("No box was assigned to this parcel, so it cannot be opened"), null, HttpStatus.BAD_REQUEST);
+        else if(tsStat1.getStatus().getCode() != 3)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("This method is not allowed while parcel has status: " + tsStat1.getStatus().getStatus()), null, HttpStatus.METHOD_NOT_ALLOWED);
+        else if(parcelComplete.a2a_code3_idle_open_box_ack.getAck() == false)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Cannot send message, waiting for the box to respond"), null, HttpStatus.BAD_REQUEST);
+        else if(parcelComplete.a2a_code3_idle_open_courier_agree == false)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Courier didn't agree to open the box so it can't be protected"), null, HttpStatus.BAD_REQUEST);
 
-    //     /* Get status code and the box */
-    //     TimestampStatus obj = recComplete.getLastStatus();
-    //     Status stat = obj.getStatus();
-    //     Parcel parcel = recComplete.getParcel();
+        /* Set courier open */
+        // if(parcelComplete.a2a_code3_idle_open_box_ack.getAck() == true) {
+            parcelCompleteRepository.setA2a_code3_protect_close_sender_agree(parcelComplete.getId().toString());
+            //TODO do check
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Message to the box is being sent"), null, HttpStatus.OK);
+        // } else {
+        //     return new ResponseEntity<ErrorMessage>(new ErrorMessage("The box hasn't been opened yet"), null, HttpStatus.BAD_REQUEST);
+        // }
 
-    //     /* Find box */
-    //     // Query boxQuery = new Query();
-    //     // boxQuery.addCriteria(Criteria.where("box").is(parcel.getBox()));
-    //     // Box box = mongoTemplate.findOne(boxQuery, Box.class);
+    }
+    /* Box was delivered to receiver - courier
+     * ?
+     */
+    @PutMapping("/parcels/a2a/{id}/courier/5/box/open")
+    public ResponseEntity courierDeliverParcel(@PathVariable String id) {
+        /* Find parcel complete */
+        ParcelComplete_a2a parcelComplete = parcelCompleteRepository.findOneParcelComplete_a2aByParcel(id);
+        /* Get last status */
+        TimestampStatus tsStat1 = parcelCompleteRepository.getLastStatus(id);
 
-    //     /* Check if operation is allowed; check if code == 3 and lid was opened than closed */
-    //     if(stat.getCode() == 3 && recComplete.a2a_code3_protect_box_opened_closed == true) {
-    //         // /* Get id of the status code 5 */
-    //         // Query query0 = new Query();
-    //         // query0.addCriteria(Criteria.where("code").is(5));
-    //         // Status newStat = mongoTemplate.findOne(query0, Status.class);
-            
-    //         // /* Add new status to parcel complete */
-    //         // Update update1 = new Update().addToSet("status", new TimestampStatus(newStat));
-    //         // recComplete = mongoTemplate.findAndModify(query1, update1, ParcelComplete.class);
+        if(parcelComplete == null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find parcel with id: " + id), null, HttpStatus.NOT_FOUND);
+        else if(parcelComplete.getParcel().getBox() == null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("No box was assigned to this parcel, so it cannot be opened"), null, HttpStatus.BAD_REQUEST);
+        else if(tsStat1.getStatus().getCode() != 5)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("This method is not allowed while parcel has status: " + tsStat1.getStatus().getStatus()), null, HttpStatus.METHOD_NOT_ALLOWED);
 
-    //         /* Confirm that box has been closed && change state to protected */
-    //         Update update1 = new Update().set("a2a_code3_protect_sender_agree", true); //protect delivery
-    //         recComplete = mongoTemplate.findAndModify(query1, update1, ParcelComplete_a2a.class);
-    //     }
-        
-    //     return recComplete;
-    // }
+        /* Set courier open */
+        parcelCompleteRepository.setA2a_code5_idle_open_courier_agree(parcelComplete.getId().toString());
+        //TODO do check
+        if(parcelComplete.a2a_code5_idle_open_receiver_agree == true)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Message to the box is being sent"), null, HttpStatus.OK);
+        else
+        return new ResponseEntity<ErrorMessage>(new ErrorMessage("Waiting for receiver to agree"), null, HttpStatus.OK);
+    }
 
-//     /* Box was delivered to receiver - courier
-//      * ?
-//      */
-//     @PutMapping("/parcels/a2a/{id}/courier/5/box/open")
-//     public Box courierDeliverParcel(@PathVariable String id) {
-//         // Query query = new Query();
-//         // query.addCriteria(Criteria.where("id").is(id));
-//         // Parcel parcel = mongoTemplate.findOne(query, Parcel.class);
+    /* Open the box after it was delivered to access the goods - receiver
+     * 
+     */
+    @PutMapping("/parcels/a2a/{id}/receiver/5/box/open")
+    public ResponseEntity receiverOpenParcel(@PathVariable String id) {
+        /* Find parcel complete */
+        ParcelComplete_a2a parcelComplete = parcelCompleteRepository.findOneParcelComplete_a2aByParcel(id);
+        /* Get last status */
+        TimestampStatus tsStat1 = parcelCompleteRepository.getLastStatus(id);
 
-//         /* Get full parcel data */
-//         Query query1 = new Query();
-//         query1.addCriteria(Criteria.where("parcel").is(id));
-//         ParcelComplete_a2a recComplete = mongoTemplate.findOne(query1, ParcelComplete_a2a.class);
+        if(parcelComplete == null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find parcel with id: " + id), null, HttpStatus.NOT_FOUND);
+        else if(parcelComplete.getParcel().getBox() == null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("No box was assigned to this parcel, so it cannot be opened"), null, HttpStatus.BAD_REQUEST);
+        else if(tsStat1.getStatus().getCode() != 5)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("This method is not allowed while parcel has status: " + tsStat1.getStatus().getStatus()), null, HttpStatus.METHOD_NOT_ALLOWED);
 
-//         /* Find box */
-//         // Query boxQuery = new Query();
-//         // boxQuery.addCriteria(Criteria.where("box").is(parcel.getBox()));
-//         // Box box = mongoTemplate.findOne(boxQuery, Box.class);
-//         TimestampStatus obj = recComplete.getLastStatus();
-//         Status stat = obj.getStatus();
-//         Parcel parcel = recComplete.getParcel();
-//         Box box = parcel.getBox();
+        /* Set courier open */
+        parcelCompleteRepository.setA2a_code5_idle_open_receiver_agree(parcelComplete.getId().toString());
+        //TODO do check
+        if(parcelComplete.a2a_code5_idle_open_courier_agree == true)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Message to the box is being sent"), null, HttpStatus.OK);
+        else
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Waiting for courier to agree"), null, HttpStatus.OK);
+    }
 
-//         if(stat.getCode() == 5) {
-//             /* Tell box to open itself */
-//             // Query boxQuery = new Query();
-//             // boxQuery.addCriteria(Criteria.where("box").is(parcel.getBox()));
-//             Update update = new Update().set("a2a_code5_idle_open_courier_agree", true);
-//             recComplete = mongoTemplate.findAndModify(query1, update, ParcelComplete_a2a.class);
-//         }
-//         return box;
-//     }
 
-//     /* Open the box after it was delivered to access the goods - receiver
-//      * 
-//      */
-//     @PutMapping("/parcels/a2a/{id}/receiver/5/box/open")
-//     public Box receiverOpenParcel(@PathVariable String id) {
-//         // Query query = new Query();
-//         // query.addCriteria(Criteria.where("id").is(id));
-//         // Parcel parcel = mongoTemplate.findOne(query, Parcel.class);
+    /* End transaction - receiver
+     * 
+     */
+    @PutMapping("/parcels/a2a/{id}/receiver/5/end")
+    public ResponseEntity receiverEndParcel(@PathVariable String id) {
+        /* Find parcel complete */
+        ParcelComplete_a2a parcelComplete = parcelCompleteRepository.findOneParcelComplete_a2aByParcel(id);
+        /* Get last status */
+        TimestampStatus tsStat1 = parcelCompleteRepository.getLastStatus(id);
 
-//         // /* Find box */
-//         // Query boxQuery = new Query();
-//         // boxQuery.addCriteria(Criteria.where("box").is(parcel.getBox()));
-//         // Box box = mongoTemplate.findOne(boxQuery, Box.class);
-//         /* Get full parcel data */
-//         Query query1 = new Query();
-//         query1.addCriteria(Criteria.where("parcel").is(id));
-//         ParcelComplete_a2a recComplete = mongoTemplate.findOne(query1, ParcelComplete_a2a.class);
+        if(parcelComplete == null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Could not find parcel with id: " + id), null, HttpStatus.NOT_FOUND);
+        else if(parcelComplete.getParcel().getBox() == null)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("No box was assigned to this parcel, so it cannot be opened"), null, HttpStatus.BAD_REQUEST);
+        else if(tsStat1.getStatus().getCode() != 5)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("This method is not allowed while parcel has status: " + tsStat1.getStatus().getStatus()), null, HttpStatus.METHOD_NOT_ALLOWED);
+        else if(parcelComplete.a2a_code5_idle_open_box_ack.getAck() == false)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("Cannot send message, waiting for the box to respond"), null, HttpStatus.BAD_REQUEST);
+        else if(parcelComplete.a2a_code5_idle_open_courier_agree == false || parcelComplete.a2a_code5_idle_open_receiver_agree == false)
+            return new ResponseEntity<ErrorMessage>(new ErrorMessage("The box wasn't opened so transaction can't be terminated"), null, HttpStatus.BAD_REQUEST);
 
-//         /* Find box */
-//         TimestampStatus obj = recComplete.getLastStatus();
-//         Status stat = obj.getStatus();
-//         Parcel parcel = recComplete.getParcel();
-//         Box box = parcel.getBox();
-
-//         if(stat.getCode() == 5) {
-//             /* Tell box to open itself */
-//             // Query boxQuery = new Query();
-//             // boxQuery.addCriteria(Criteria.where("box").is(parcel.getBox()));
-//             Update update = new Update().set("a2a_code5_idle_open_receiver_agree", true);
-//             recComplete = mongoTemplate.findAndModify(query1, update, ParcelComplete_a2a.class);
-//         }
-
-//         return box;
-//     }
-
-//     /* End transaction - courier
-//      * ?
-//      */
-//     // @PutMapping("/parcels/a2a/{id}/courier/end")
-//     // public Parcel courierEndParcel() {
-//     //     // newParcel.setCourier(null);
-//     //     // Parcel rec = parcelRepository.save(newParcel);
-//     //     // parcelCompleteRepository.save(new ParcelComplete(rec, null, null, null));
-
-//     //     return rec;
-//     // }
-
-//     /* End transaction - receiver
-//      * 
-//      */
-//     @PutMapping("/parcels/a2a/{id}/receiver/5/end")
-//     public ParcelComplete receiverEndParcel(@PathVariable String id) {
-//         /* Get full parcel data */
-//         Query query1 = new Query();
-//         query1.addCriteria(Criteria.where("parcel").is(id));
-//         ParcelComplete_a2a recComplete = mongoTemplate.findOne(query1, ParcelComplete_a2a.class);
-
-//         /* Find box */
-//         TimestampStatus obj = recComplete.getLastStatus();
-//         Status stat = obj.getStatus();
-//         Parcel parcel = recComplete.getParcel();
-//         Box box = parcel.getBox();
-
-//         if(stat.getCode() == 5 && recComplete.a2a_code5_end_box_opened_closed == true) {
-//             /* Get id of the status code 3 */
-//             Query query0 = new Query();
-//             query0.addCriteria(Criteria.where("code").is(5));
-//             Status newStat = mongoTemplate.findOne(query0, Status.class);
-            
-//             /* Get full parcel data *//* Add new status */
-//             Update update1 = new Update().addToSet("status", new TimestampStatus(newStat));
-//             recComplete = mongoTemplate.findAndModify(query1, update1, ParcelComplete_a2a.class);
-
-//             /* Confirm that box has been closed */
-//             // Update updateBox = new Update().set("currentState", 0);      //??? 
-//             // updateBox.set("lid", 0);
-//             // box = mongoTemplate.findAndModify(boxQuery, updateBox, Box.class);
-//         }
-        
-//         return recComplete;
-//     }
+        /* Set courier open */
+        // if(parcelComplete.a2a_code3_idle_open_box_ack.getAck() == true) {
+        parcelCompleteRepository.setA2a_code5_end_open_receiver_agree(parcelComplete.getId().toString());
+    
+        return new ResponseEntity<ErrorMessage>(new ErrorMessage("Message to the box is being sent"), null, HttpStatus.OK);
+    }
 }

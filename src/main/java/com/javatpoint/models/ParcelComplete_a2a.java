@@ -43,15 +43,16 @@ public class ParcelComplete_a2a extends ParcelComplete {
         this.alarm = new ArrayList<>();
         this.status = new ArrayList<>();
         a2a_code3_idle_open_courier_agree = false;
-        // a2a_code3_idle_open_box_ack = false;
-        // a2a_code3_protect_close_box_opened_closed = false;
+        a2a_code1_idle_close_box_ack = new Message(false, false);
         a2a_code3_protect_close_sender_agree = false;
-        // a2a_code3_protect_close_box_ack = false;
+        a2a_code3_idle_open_box_ack = new Message(false, true);
         a2a_code5_idle_open_receiver_agree = false;
         a2a_code5_idle_open_courier_agree = false;
-        // a2a_code5_idle_open_box_ack = false;
+        a2a_code3_protect_close_box_ack = new Message(true, false);
         a2a_code5_end_open_receiver_agree = false;
-        // a2a_code5_end_box_ack = false;
+        a2a_code5_idle_open_box_ack = new Message(false, true);
+        a2a_code5_end_box_ack = new Message(false, false);
+
     }
 
     /* Combined with information about the state of a parcel
@@ -66,126 +67,40 @@ public class ParcelComplete_a2a extends ParcelComplete {
 
     /* code 1 */
     @JsonIgnore
-    public Message a2a_code1_idle_close_box_ack = new Message(false, false);
+    public Message a2a_code1_idle_close_box_ack;
 
     /* code 3 */
     /* open */
-    @JsonIgnore
+    // @JsonIgnore
     public boolean a2a_code3_idle_open_courier_agree; 
     // @DocumentReference
     @JsonIgnore
-    public Message a2a_code3_idle_open_box_ack = new Message(false, true);
+    public Message a2a_code3_idle_open_box_ack;
     /* close and protect */
     // @DocumentReference
     // @JsonIgnore
     // public boolean a2a_code3_protect_close_box_opened_closed;
-    @JsonIgnore
+    // @JsonIgnore
     public boolean a2a_code3_protect_close_sender_agree;
     // @DocumentReference
     @JsonIgnore
-    public Message a2a_code3_protect_close_box_ack = new Message(true, false);
+    public Message a2a_code3_protect_close_box_ack;
 
     /* code 5 */
     /* go idle and open */
-    @JsonIgnore
+    // @JsonIgnore
     public boolean a2a_code5_idle_open_receiver_agree;
-    @JsonIgnore
+    // @JsonIgnore
     public boolean a2a_code5_idle_open_courier_agree;
     // @DocumentReference
     @JsonIgnore
-    public Message a2a_code5_idle_open_box_ack = new Message(false, true);
+    public Message a2a_code5_idle_open_box_ack;
     /* end */
-    @JsonIgnore
+    // @JsonIgnore
     public boolean a2a_code5_end_open_receiver_agree;
     // @DocumentReference
     @JsonIgnore
-    public Message a2a_code5_end_box_ack = new Message(false, false);
+    public Message a2a_code5_end_box_ack;
 
-    /* Returns a message that has to be sent to the box */
-    @Override
-    public Message getMessage() {
-        int code = getLastStatus().getStatus().getCode();
-        
-        switch(code) {
-            case 1: {
-                return a2a_code1_idle_close_box_ack;
-            }
-            case 3: {
-                /* Send not acknowledged messages */
-                if(a2a_code3_idle_open_courier_agree == true && a2a_code3_idle_open_box_ack.getAck() == false)
-                    return a2a_code3_idle_open_box_ack;
-                else if(a2a_code3_protect_close_sender_agree == true && a2a_code3_protect_close_box_ack.getAck() == false)
-                    return a2a_code3_protect_close_box_ack;
-                /* Send acknowledged messages to tell the box that it doesn't have to respond */
-                else if(a2a_code3_protect_close_sender_agree == true && a2a_code3_protect_close_box_ack.getAck() == true)
-                    return a2a_code3_protect_close_box_ack;
-                else if(a2a_code3_idle_open_courier_agree == true && a2a_code3_idle_open_box_ack.getAck() == true)
-                    return a2a_code3_idle_open_box_ack;
-                /* else return message from previous stage */
-                else 
-                    return a2a_code1_idle_close_box_ack;
-            }
-            case 5: {
-                /* Send not acknowledged messages */
-                if(a2a_code5_idle_open_receiver_agree == true && a2a_code5_idle_open_courier_agree == true &&
-                    a2a_code5_idle_open_box_ack.getAck() == false)
-                    return a2a_code5_idle_open_box_ack;
-                else if(a2a_code5_end_open_receiver_agree == true && a2a_code5_end_box_ack.getAck() == false)
-                    return a2a_code5_end_box_ack;
-                /* Send acknowledged messages to tell the box that it doesn't have to respond */
-                else if(a2a_code5_end_open_receiver_agree == true && a2a_code5_end_box_ack.getAck() == true)
-                    return a2a_code5_end_box_ack;
-                if(a2a_code5_idle_open_receiver_agree == true && a2a_code5_idle_open_courier_agree == true &&
-                    a2a_code5_idle_open_box_ack.getAck() == true)
-                    return a2a_code5_idle_open_box_ack;
-                /* else return message from previous stage */
-                else 
-                    return a2a_code3_protect_close_box_ack;
-            }
-        }
-
-        /* ERROR */
-        return null;
-    }
-
-//TODO set next code
-    @Override
-    public Message setMessage(Message message) {
-        int code = getLastStatus().getStatus().getCode();
-        
-        switch(code) {
-            case 1: {
-                a2a_code1_idle_close_box_ack.setAck(message.getAck());
-                return a2a_code1_idle_close_box_ack;
-            }
-            case 3: {
-                /* Send not acknowledged messages */
-                if(a2a_code3_idle_open_courier_agree == true && a2a_code3_idle_open_box_ack.getAck() == false) {
-                    a2a_code3_idle_open_box_ack.setAck(message.getAck());
-                    return a2a_code3_idle_open_box_ack;
-                }
-                else if(a2a_code3_protect_close_sender_agree == true && a2a_code3_protect_close_box_ack.getAck() == false) {
-                    a2a_code3_protect_close_box_ack.setAck(message.getAck());
-                    // if(message.getAck() == true)
-
-                    return a2a_code3_protect_close_box_ack;
-                }
-            }
-            case 5: {
-                /* Send not acknowledged messages */
-                if(a2a_code5_idle_open_receiver_agree == true && a2a_code5_idle_open_courier_agree == true &&
-                a2a_code5_idle_open_box_ack.getAck() == false) {
-                    a2a_code3_protect_close_box_ack.setAck(message.getAck());
-                    return a2a_code5_idle_open_box_ack;
-                }
-                else if(a2a_code5_end_open_receiver_agree == true && a2a_code5_end_box_ack.getAck() == false) {
-                    a2a_code5_end_box_ack.setAck(message.getAck());
-                    return a2a_code5_end_box_ack;
-                }
-            }
-        }
-
-        /* ERROR */
-        return null;
-    }
+    
 }

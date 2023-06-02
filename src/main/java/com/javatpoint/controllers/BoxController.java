@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.mongodb.core.query.Query;
@@ -19,19 +20,39 @@ import org.springframework.http.ResponseEntity;
 
 import com.javatpoint.models.Box;
 import com.javatpoint.models.Message;
+import com.javatpoint.models.ParcelComplete_a2a;
+import com.javatpoint.models.Telemetry;
+import com.javatpoint.models.TimestampTelemetry;
 import com.javatpoint.repositories.BoxRepository;
+import com.javatpoint.repositories.ParcelCompleteRepository;
+import com.javatpoint.repositories.TelemetryRepository;
+import com.javatpoint.repositories.TimestampTelemetryRepository;
 //import org.springframework.web.bind.annotation.PutMapping;
+import com.javatpoint.services.ParcelComplete_a2aService;
   
 
 @RestController  
 public class BoxController {
     private final BoxRepository boxRepository;
     private final MongoTemplate mongoTemplate;
-    // private final ParcelCompleteRepository parcelCompleteRepository;
+    private final ParcelComplete_a2aService cCa2aService;
+    private final ParcelCompleteRepository parcelCompleteRepository;
+    private final TimestampTelemetryRepository tsTelemetryRepository;
 
-    public BoxController(BoxRepository boxRepository, MongoTemplate mongoTemplate) {
+    private final Message default_message; //TODO delete
+
+    public BoxController(BoxRepository boxRepository, 
+                         MongoTemplate mongoTemplate,
+                         ParcelComplete_a2aService cCa2aService,
+                         ParcelCompleteRepository parcelCompleteRepository,
+                         TimestampTelemetryRepository tsTelemetryRepository) {
         this.boxRepository = boxRepository;
         this.mongoTemplate = mongoTemplate;
+        this.cCa2aService = cCa2aService;
+        this.parcelCompleteRepository = parcelCompleteRepository;
+        this.tsTelemetryRepository = tsTelemetryRepository;
+        
+        default_message = new Message(false, false); //TODO delete
     }
 
     /* Returns all Box data */
@@ -62,16 +83,49 @@ public class BoxController {
     @GetMapping("/boxes/{mac}/idle")
     public ResponseEntity idleBox(@PathVariable String mac) {
         Box box = boxRepository.findOne(mac);
-        return new ResponseEntity<Message>(box.getParcelComplete().getMessage(), null, HttpStatus.OK);
+        if(box.getParcelComplete() != null) {
+            ParcelComplete_a2a cCa2a = parcelCompleteRepository.findOneParcelComplete_a2a(box.getParcelComplete().getId().toString());
+            Message systemMessage = cCa2aService.getMessage(cCa2a);
+            return new ResponseEntity<Message>(systemMessage, null, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Message>(default_message, null, HttpStatus.OK);
+        }
     }
 
     /* Put response to the requested operation */
-    @PutMapping("/boxes/{mac}/idle")
+    @PutMapping("/boxes/{mac}/answer")
     public ResponseEntity idleBox(@PathVariable String mac, @RequestBody Message message) {
         Box box = boxRepository.findOne(mac);
-        box.getParcelComplete().get
-        return boxRepository.save(newBox);
+
+        if(box != null && box.getParcelComplete() != null) {
+            ParcelComplete_a2a cCa2a = parcelCompleteRepository.findOneParcelComplete_a2a(box.getParcelComplete().getId().toString());
+            Message systemMessage = cCa2aService.setMessage(cCa2a, message);
+            return new ResponseEntity<Message>(systemMessage, null, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Message>(default_message, null, HttpStatus.OK);
+        }
     }
+
+     /* Post new telemetry */
+     @PostMapping("/boxes/{mac}/telemetries")
+     public ResponseEntity createTelemetryBox(@PathVariable String mac, @RequestBody Telemetry newTelemetry) {
+        Box box = boxRepository.findOne(mac);
+
+        if(box != null && box.getParcelComplete() != null) {
+            /* Add new telemetry to the box and a parcel complete*/
+            ParcelComplete_a2a cCa2a = parcelCompleteRepository.findOneParcelComplete_a2a(box.getParcelComplete().getId().toString());
+            TimestampTelemetry tsTel = tsTelemetryRepository.save(new TimestampTelemetry(newTelemetry));
+            parcelCompleteRepository.addTelemetry(box.getParcelComplete().getId().toString(), tsTel);
+            boxRepository.addTelemetry(box.getMac().toString(), tsTel);
+
+            Message systemMessage = cCa2aService.getMessage(cCa2a);
+            return new ResponseEntity<Message>(systemMessage, null, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Message>(default_message, null, HttpStatus.OK);
+        }
+     }
+
+
 
     // @GetMapping("/boxes")
     // public Box createBox(@RequestBody Box newBox) {

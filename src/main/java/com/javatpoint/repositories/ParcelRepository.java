@@ -2,6 +2,7 @@ package com.javatpoint.repositories;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Repository;
 
 import com.javatpoint.models.Box;
 import com.javatpoint.models.Parcel;
+import com.javatpoint.models.ParcelComplete;
+import com.javatpoint.models.Region;
+import com.javatpoint.models.Status;
 
 @Repository
 public class ParcelRepository {
@@ -53,10 +57,33 @@ public class ParcelRepository {
         return mongoTemplate.findAndModify(query, update, Parcel.class);
     }
 
-    // find parcels by region (city)
-    public List<Parcel> findParcelsbyCity(String city) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("region.city").is(city));
-        return mongoTemplate.find(query, Parcel.class); 
-    }
+    // find parcels by region (city) - for courier mode
+    // public List<Parcel> findParcelsToAssignbyCity(String city) {
+    //     /* Find regions with specyfied city */
+    //     Query regionQuery = new Query();
+    //     regionQuery.addCriteria(Criteria.where("city").is(city));
+    //     List<Region> regions = mongoTemplate.find(regionQuery, Region.class); 
+
+    //     /* Find code 1 */
+    //     Query statusQuery = new Query();
+    //     statusQuery.addCriteria(Criteria.where("code").is(1));
+    //     Status status = mongoTemplate.findOne(statusQuery, Status.class); 
+
+    //     List<Parcel> fullParcelList = new ArrayList<>();
+    //     for (Region region : regions) {
+    //         db.collection.find({
+
+    //         })
+
+    //         Query query = new Query();
+    //         query.addCriteria(Criteria.where("deliverFrom.region.id").is(region.getId().toString()));
+    //         /* Code must be 1*/
+    //         query.addCriteria(Criteria.where("status.id").is(status.getId().toString()));
+    //         mongoTemplate.find(query, ParcelComplete.class); 
+
+    //         fullParcelList
+    //     }
+        
+    //     return fullParcelList;
+    // }
 }

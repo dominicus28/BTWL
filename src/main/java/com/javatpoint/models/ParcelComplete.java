@@ -87,14 +87,6 @@ public class ParcelComplete {
         this.status = status;
     }
 
-    public Message getMessage() {
-        return null;
-    }
-
-    public Message setMessage(Message message) {
-        return null;
-    }
-
     // MOVE TO THE REPOSITORY
     // public void addTelemetry(Telemetry newTimestampTelemetry) {
     //     // if(telemetry == null)
