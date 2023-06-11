@@ -121,6 +121,66 @@ public class ParcelCompleteRepository{
         // return mongoTemplate.find(query, ParcelComplete.class);
     }
 
+    public List<ParcelComplete> findReceiversParcelCompletes(String login) {
+        
+        Query query1 = new Query();
+        query1.addCriteria(Criteria.where("login").is(login));
+        User user =  mongoTemplate.findOne(query1, User.class);
+
+        Query query2 = new Query();
+        query2.addCriteria(Criteria.where("receiver.id").is(user.getId().toString()));
+        List<Parcel> parcels = mongoTemplate.find(query2, Parcel.class);
+
+        Query query = new Query();
+        List<Criteria> lCryt = new ArrayList<Criteria>();
+        
+        for (Parcel parcel : parcels) {
+           
+            lCryt.add(Criteria.where("parcel.id").is(parcel.getId().toString()));
+        }
+
+        Criteria cryt = new Criteria();
+        cryt.orOperator(lCryt);
+
+        query.addCriteria(cryt);
+
+        return mongoTemplate.find(query, ParcelComplete.class);
+        
+        // Query query = new Query();
+        // query.addCriteria(Criteria.where("parcel.sender.id").is(user.getId().toString()));
+        // return mongoTemplate.find(query, ParcelComplete.class);
+    }
+
+    public List<ParcelComplete> findCouriersParcelCompletes(String login) {
+        
+        Query query1 = new Query();
+        query1.addCriteria(Criteria.where("login").is(login));
+        User user =  mongoTemplate.findOne(query1, User.class);
+
+        Query query2 = new Query();
+        query2.addCriteria(Criteria.where("courier.id").is(user.getId().toString()));
+        List<Parcel> parcels = mongoTemplate.find(query2, Parcel.class);
+
+        Query query = new Query();
+        List<Criteria> lCryt = new ArrayList<Criteria>();
+        
+        for (Parcel parcel : parcels) {
+           
+            lCryt.add(Criteria.where("parcel.id").is(parcel.getId().toString()));
+        }
+
+        Criteria cryt = new Criteria();
+        cryt.orOperator(lCryt);
+
+        query.addCriteria(cryt);
+
+        return mongoTemplate.find(query, ParcelComplete.class);
+        
+        // Query query = new Query();
+        // query.addCriteria(Criteria.where("parcel.sender.id").is(user.getId().toString()));
+        // return mongoTemplate.find(query, ParcelComplete.class);
+    }
+
     private List<ParcelBrief> pCTopB(List<ParcelComplete> pCs) {
         List<ParcelBrief> pBs = new ArrayList<>();
 
@@ -147,6 +207,18 @@ public class ParcelCompleteRepository{
     }
 
     public List<ParcelBrief> findSendersParcelBriefs(String login) {
+        
+        List<ParcelComplete> pCs = findSendersParcelCompletes(login);
+
+        return pCTopB(pCs);
+    }
+    public List<ParcelBrief> findReceiversParcelBriefs(String login) {
+        
+        List<ParcelComplete> pCs = findSendersParcelCompletes(login);
+
+        return pCTopB(pCs);
+    }
+    public List<ParcelBrief> findCouriersParcelBriefs(String login) {
         
         List<ParcelComplete> pCs = findSendersParcelCompletes(login);
 

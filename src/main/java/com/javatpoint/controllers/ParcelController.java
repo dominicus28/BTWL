@@ -95,21 +95,21 @@ public class ParcelController {
         return new ResponseEntity<List<ParcelBrief>>(pC, null, HttpStatus.OK);
     }
 
-    // @GetMapping(value = "/users/{login}/senders/parcels")
-    // public ResponseEntity getReceiversParcels(@PathVariable String login)
-    // {
-    //     List<ParcelBrief> pC = parcelCompleteRepository.findReceiversParcelBriefs(login);
+    @GetMapping(value = "/users/{login}/receivers/parcels")
+    public ResponseEntity getReceiversParcels(@PathVariable String login)
+    {
+        List<ParcelBrief> pC = parcelCompleteRepository.findReceiversParcelBriefs(login);
 
-    //     return new ResponseEntity<List<ParcelBrief>>(pC, null, HttpStatus.OK);
-    // }
+        return new ResponseEntity<List<ParcelBrief>>(pC, null, HttpStatus.OK);
+    }
 
-    // @GetMapping(value = "/users/{login}/senders/parcels")
-    // public ResponseEntity getCouriersParcels(@PathVariable String login)
-    // {
-    //     List<ParcelBrief> pC = parcelCompleteRepository.findCouriersParcelBriefs(login);
+    @GetMapping(value = "/users/{login}/couriers/parcels")
+    public ResponseEntity getCouriersParcels(@PathVariable String login)
+    {
+        List<ParcelBrief> pC = parcelCompleteRepository.findCouriersParcelBriefs(login);
 
-    //     return new ResponseEntity<List<ParcelBrief>>(pC, null, HttpStatus.OK);
-    // }
+        return new ResponseEntity<List<ParcelBrief>>(pC, null, HttpStatus.OK);
+    }
 
 // TODO to co wyżej dla recevier i courier
 
