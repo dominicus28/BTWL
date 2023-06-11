@@ -106,7 +106,7 @@ public class ParcelRepository {
         List<Criteria> lCryt = new ArrayList<Criteria>();
 
         for (Region region : regions) {
-            lCryt.add(Criteria.where("region.id").is(region.getId().toString()).and("status").size(1));
+            lCryt.add(Criteria.where("region.id").is(region.getId().toString()));
         }
 
         Criteria cryt = new Criteria();
@@ -116,6 +116,7 @@ public class ParcelRepository {
         List<Parcel> parcels = new ArrayList<Parcel>();
 
         for (ParcelComplete parcelComplete : pCs) {
+            if(parcelComplete.getLastStatus().getStatus().getCode() == 1)
             parcels.add(parcelComplete.getParcel());
         }
 
