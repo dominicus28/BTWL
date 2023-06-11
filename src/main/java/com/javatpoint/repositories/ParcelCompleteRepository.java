@@ -1,5 +1,7 @@
 package com.javatpoint.repositories;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import com.javatpoint.models.Parcel;
+import com.javatpoint.models.ParcelBrief;
 import com.javatpoint.models.ParcelComplete;
 import com.javatpoint.models.ParcelComplete_a2a;
 //import com.javatpoint.models.Status;
@@ -89,9 +92,65 @@ public class ParcelCompleteRepository{
     }
 
     public List<ParcelComplete> findSendersParcelCompletes(String login) {
+        
+        Query query1 = new Query();
+        query1.addCriteria(Criteria.where("login").is(login));
+        User user =  mongoTemplate.findOne(query1, User.class);
+
+        Query query2 = new Query();
+        query2.addCriteria(Criteria.where("sender.id").is(user.getId().toString()));
+        List<Parcel> parcels = mongoTemplate.find(query2, Parcel.class);
+
         Query query = new Query();
-        query.addCriteria(Criteria.where("parcel.sender.login").is(login));
+        List<Criteria> lCryt = new ArrayList<Criteria>();
+        
+        for (Parcel parcel : parcels) {
+           
+            lCryt.add(Criteria.where("parcel.id").is(parcel.getId().toString()));
+        }
+
+        Criteria cryt = new Criteria();
+        cryt.orOperator(lCryt);
+
+        query.addCriteria(cryt);
+
         return mongoTemplate.find(query, ParcelComplete.class);
+        
+        // Query query = new Query();
+        // query.addCriteria(Criteria.where("parcel.sender.id").is(user.getId().toString()));
+        // return mongoTemplate.find(query, ParcelComplete.class);
+    }
+
+    private List<ParcelBrief> pCTopB(List<ParcelComplete> pCs) {
+        List<ParcelBrief> pBs = new ArrayList<>();
+
+        for (ParcelComplete pC : pCs) {
+            TimestampTelemetry tsT = null;
+
+            if(pC.getTelemetry() != null && pC.getTelemetry().size() != 0)
+                tsT = pC.getTelemetry().get(pC.getTelemetry().size() - 1);
+
+            TimestampAlarm tsA = null;
+
+            if(pC.getAlarm() != null && pC.getAlarm().size() != 0)
+                tsA = pC.getAlarm().get(pC.getAlarm().size() - 1);
+
+            TimestampStatus tsS = null;
+
+            if(pC.getStatus() != null && pC.getStatus().size() != 0)
+                tsS = pC.getStatus().get(pC.getStatus().size() - 1);
+
+            pBs.add(new ParcelBrief(pC.getParcel(), tsT, tsA, tsS));
+        }
+
+        return pBs;
+    }
+
+    public List<ParcelBrief> findSendersParcelBriefs(String login) {
+        
+        List<ParcelComplete> pCs = findSendersParcelCompletes(login);
+
+        return pCTopB(pCs);
     }
 
     public ParcelComplete save(ParcelComplete parcelComplete) {
