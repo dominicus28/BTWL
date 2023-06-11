@@ -18,6 +18,8 @@ import com.javatpoint.models.Parcel;
 import com.javatpoint.models.ParcelBrief;
 import com.javatpoint.models.ParcelComplete;
 import com.javatpoint.models.ParcelComplete_a2a;
+import com.javatpoint.models.Region;
+import com.javatpoint.models.Status;
 //import com.javatpoint.models.Status;
 import com.javatpoint.models.TimestampTelemetry;
 import com.javatpoint.models.User;
@@ -29,9 +31,12 @@ public class ParcelCompleteRepository{
         
     @Autowired
     private final MongoTemplate mongoTemplate;
+    private final RegionRepository regionRepository;
     
-    public ParcelCompleteRepository(MongoTemplate mongoTemplate) {
+    public ParcelCompleteRepository(MongoTemplate mongoTemplate,
+                                    RegionRepository regionRepository) {
         this.mongoTemplate = mongoTemplate;
+        this.regionRepository = regionRepository;
     }
     
     public ParcelComplete addTelemetry(String id, TimestampTelemetry newTimestampTelemetry) {
@@ -352,5 +357,9 @@ public class ParcelCompleteRepository{
         return mongoTemplate.findAndModify(query, update, ParcelComplete_a2a.class);
     }
 
+    
+
+
+    
     
 }

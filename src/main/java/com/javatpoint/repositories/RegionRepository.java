@@ -26,9 +26,15 @@ public class RegionRepository {
         return mongoTemplate.findAll(Region.class);
     }
 
-    public List<Region> findRegionByProvince(String province) {
+    public List<Region> findRegionsByProvince(String province) {
         Query query = new Query();
         query.addCriteria(Criteria.where("province").is(province));
+        return mongoTemplate.find(query, Region.class);
+    }
+
+    public List<Region> findRegionsByCountryProvinceAndCityNames(String country, String province, String city) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("country").is(country).and("province").is(province).and("city").is(city));
         return mongoTemplate.find(query, Region.class);
     }
 

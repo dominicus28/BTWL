@@ -18,15 +18,22 @@ import com.javatpoint.models.Parcel;
 import com.javatpoint.models.ParcelComplete;
 import com.javatpoint.models.Region;
 import com.javatpoint.models.Status;
+import com.javatpoint.models.User;
 
 @Repository
 public class ParcelRepository {
     @Autowired
     private final MongoTemplate mongoTemplate;
+    private final StatusRepository statusRepository;
+    private final RegionRepository regionRepository;
 
-    public ParcelRepository(MongoTemplate mongoTemplate) {
+    public ParcelRepository(MongoTemplate mongoTemplate,
+                            StatusRepository statusRepository,
+                            RegionRepository regionRepository) {
         //super();
         this.mongoTemplate = mongoTemplate;
+        this.statusRepository = statusRepository;
+        this.regionRepository = regionRepository;
     }
 
     public Parcel save(Parcel parcel) {
@@ -86,4 +93,54 @@ public class ParcelRepository {
         
     //     return fullParcelList;
     // }
+
+    public List<Parcel> findParcelsByCountryProvinceAndCityNames(String country, String province, String city) {
+        
+        /* find regions */
+        List<Region> regions = regionRepository.findRegionsByCountryProvinceAndCityNames(country, province, city);
+
+        // /* find status of delivered packages */
+        // Status stat = statusRepository.find(1);
+        
+        Query query = new Query();
+        List<Criteria> lCryt = new ArrayList<Criteria>();
+
+        for (Region region : regions) {
+            lCryt.add(Criteria.where("region.id").is(region.getId().toString()).and("status").size(1));
+        }
+
+        Criteria cryt = new Criteria();
+        cryt.orOperator(lCryt);
+        List<ParcelComplete> pCs = mongoTemplate.find(query, ParcelComplete.class);
+
+        List<Parcel> parcels = new ArrayList<Parcel>();
+
+        for (ParcelComplete parcelComplete : pCs) {
+            parcels.add(parcelComplete.getParcel());
+        }
+
+        return parcels;
+
+        // Query query1 = new Query();
+        // query1.addCriteria(Criteria.where("deliverFrom.region.id").is(login));
+        // User user =  mongoTemplate.findOne(query1, User.class);
+
+        // Query query2 = new Query();
+        // query2.addCriteria(Criteria.where("courier.id").is(user.getId().toString()));
+        // List<Parcel> parcels = mongoTemplate.find(query2, Parcel.class);
+
+        
+        
+        // for (Parcel parcel : parcels) {
+           
+            
+
+        // query.addCriteria(cryt);
+
+        
+        
+        // Query query = new Query();
+        // query.addCriteria(Criteria.where("parcel.sender.id").is(user.getId().toString()));
+        // return mongoTemplate.find(query, ParcelComplete.class);
+    }
 }

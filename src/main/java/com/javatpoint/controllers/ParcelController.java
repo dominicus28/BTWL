@@ -111,6 +111,14 @@ public class ParcelController {
         return new ResponseEntity<List<ParcelBrief>>(pC, null, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/regions/{countryName}/{provinceName}/{cityName}/parcels")
+    public ResponseEntity getCityParcels(@PathVariable String countryName, @PathVariable String provinceName, @PathVariable String cityName)
+    {
+        List<Parcel> pC = parcelRepository.findParcelsByCountryProvinceAndCityNames(countryName, provinceName, cityName);
+
+        return new ResponseEntity<List<Parcel>>(pC, null, HttpStatus.OK);
+    }
+
 // TODO to co wyżej dla recevier i courier
 
     /* Expanded data of a parcel */

@@ -3,12 +3,15 @@ package com.javatpoint.models;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //import java.util.List;
 
 //import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 public class Status {
     @Id
+    @JsonIgnore
     private ObjectId id;
     private String status;
     private int code;

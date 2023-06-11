@@ -38,11 +38,11 @@ public class RegionController {
     }
 
     // Show regions by province
-    @GetMapping(value = "/regions/{provinceName}")
-    public List<Region> getRegionsbyProvince(@PathVariable String provinceName)  // LowerSilesia
-    {
-        return regionRepository.findRegionByProvince(provinceName);
-    }
+    // @GetMapping(value = "/regions/{provinceName}")
+    // public List<Region> getRegionsbyProvince(@PathVariable String provinceName)  // LowerSilesia
+    // {
+    //     return regionRepository.findRegionByProvince(provinceName);
+    // }
 
     // Show regions by city
     @GetMapping(value = "/regions/cities/{cityName}")
