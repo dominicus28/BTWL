@@ -71,35 +71,19 @@ public class ParcelComplete_a2a extends ParcelComplete {
 
     /* code 3 */
     /* open */
-    // @JsonIgnore
     public boolean a2a_code3_idle_open_courier_agree; 
-    // @DocumentReference
-    @JsonIgnore
     public Message a2a_code3_idle_open_box_ack;
     /* close and protect */
-    // @DocumentReference
-    // @JsonIgnore
-    // public boolean a2a_code3_protect_close_box_opened_closed;
-    // @JsonIgnore
     public boolean a2a_code3_protect_close_sender_agree;
-    // @DocumentReference
-    @JsonIgnore
     public Message a2a_code3_protect_close_box_ack;
 
     /* code 5 */
     /* go idle and open */
-    // @JsonIgnore
-    public boolean a2a_code5_idle_open_receiver_agree;
-    // @JsonIgnore
-    public boolean a2a_code5_idle_open_courier_agree;
-    // @DocumentReference
-    @JsonIgnore
+    public boolean a2a_code5_idle_open_receiver_agree;  
+    public boolean a2a_code5_idle_open_courier_agree;   
     public Message a2a_code5_idle_open_box_ack;
     /* end */
-    // @JsonIgnore
     public boolean a2a_code5_end_open_receiver_agree;
-    // @DocumentReference
-    @JsonIgnore
     public Message a2a_code5_end_box_ack;
 
     
