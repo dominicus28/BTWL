@@ -84,6 +84,7 @@ public class ParcelComplete_a2a extends ParcelComplete {
     public Message a2a_code5_idle_open_box_ack;
     /* end */
     public boolean a2a_code5_end_open_receiver_agree;
+    @JsonIgnore
     public Message a2a_code5_end_box_ack;
 
     
