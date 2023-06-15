@@ -198,10 +198,23 @@ public class ParcelComplete_a2aService {
                     // TimestampAlarm tsAlarm = new TimestampAlarm();
                 }
             }
+            default: {
+                if(message.getProtect() == false && message.getOpen() == false) {
+                    if(message.getAck() == true) {
+                        pCa2a.a2a_code1_idle_close_box_ack.setAck();
+                        parcelCompleteRepository.setA2a_code1_idle_close_box_ack(pCa2a.getId().toString());
+                    }
+
+                    return pCa2a.a2a_code1_idle_close_box_ack;
+                } else {
+                    /* ERROR, that shouldn'h have happened */
+                    return pCa2a.a2a_code1_idle_close_box_ack;
+                }
+            }
         }
 
         /* ERROR */
-        return null;
+        // return null;
     }
 
 }
