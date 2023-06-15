@@ -23,7 +23,10 @@ import { DeliverAddressComponent } from './components/deliver-address/deliver-ad
 import { DeliverBinComponent } from './components/deliver-bin/deliver-bin.component';
 import { DeliverComponent } from './components/deliver/deliver.component';
 import { BinsMapComponent } from './components/bins-map/bins-map.component';
-import { ParcelDetailsComponent } from './components/parcel-details/parcel-details.component'
+import { ParcelDetailsComponent } from './components/parcel-details/parcel-details.component';
+import { AcceptParcelComponent } from './components/accept-parcel/accept-parcel.component';
+import { ParcelDetailsCourierComponent } from './components/parcel-details-courier/parcel-details-courier.component';
+import { ParcelDetailsReceiverComponent } from './components/parcel-details-receiver/parcel-details-receiver.component'
 
 @NgModule({
   declarations: [
@@ -44,7 +47,10 @@ import { ParcelDetailsComponent } from './components/parcel-details/parcel-detai
     DeliverBinComponent,
     DeliverComponent,
     BinsMapComponent,
-    ParcelDetailsComponent
+    ParcelDetailsComponent,
+    AcceptParcelComponent,
+    ParcelDetailsCourierComponent,
+    ParcelDetailsReceiverComponent
   ],
   imports: [
     BrowserModule,

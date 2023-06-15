@@ -1,26 +1,27 @@
 import { Component } from '@angular/core';
-import * as L from 'leaflet';
+import * as L from "leaflet";
 import {ParcelsService} from "../../parcels.service";
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from "@angular/router";
+import {popup} from "leaflet";
 
 @Component({
-  selector: 'app-parcel-details',
-  templateUrl: './parcel-details.component.html',
-  styleUrls: ['./parcel-details.component.css']
+  selector: 'app-parcel-details-receiver',
+  templateUrl: './parcel-details-receiver.component.html',
+  styleUrls: ['./parcel-details-receiver.component.css']
 })
-export class ParcelDetailsComponent {
+export class ParcelDetailsReceiverComponent {
   // @ts-ignore
   private map: L.Map;
   private centroid: L.LatLngExpression = [51.107883, 17.038538]; //wrocław
   display = false;
   isShowing: boolean = false;
   showMess: boolean = false;
-  data: any;
+  messageJSON: any;
+  data: any = [];
   // @ts-ignore
   longitude: number;
   // @ts-ignore
   latitude: number;
-  messageJSON: any;
 
   id: any;
 
@@ -52,18 +53,22 @@ export class ParcelDetailsComponent {
     });
 
     L.marker([this.latitude, this.longitude]).addTo(this.map)
-      .bindPopup('Tutaj znajduje się obecnie twoja paczka')
+      .bindPopup('Tutaj znajduje się obecnie paczka')
       .openPopup();
 
     tiles.addTo(this.map);
 
   }
-  closeParcel() {
-    this.parcel.closeParcel(this.id).subscribe((result)=> {
-      this.popup(result)
+  accessParcel() {
+    this.parcel.accessParcel(this.id).subscribe((result)=> {
+      popup(result)
     })
   }
-
+  endTransaction() {
+    this.parcel.endTransaction(this.id).subscribe((result)=> {
+      popup(result)
+    })
+  }
   popup(result: any){
     let mess = JSON.stringify(result)
     this.messageJSON = JSON.parse(mess).message

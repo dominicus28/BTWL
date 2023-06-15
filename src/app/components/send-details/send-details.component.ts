@@ -19,11 +19,30 @@ export class SendDetailsComponent {
   }
 
   getSendFormData(data: any) {
-    this.data = JSON.parse(`{"name": "${data.name}", "mail": "${data.mail}", "telephone": ${data.telephone},
-    "postal": ${data.postal}, "place": "${data.place}", "street": "${data.street}",
-    "size": "${localStorage.getItem('size')}", "delivery": "${localStorage.getItem('delivery')}",
-    "receiverName": "${data.receiverName}", "receiverMail": "${data.receiverMail}", "receiverTelephone": ${data.receiverTelephone},
-    "receiverPostal": ${data.receiverPostal}, "receiverPlace": "${data.receiverPlace}", "receiverStreet": "${data.receiverStreet}"}`)
+    this.data = JSON.parse(`
+    {
+    "size": "A",
+    "deliverFrom": {
+      "region":{
+        "postalCode":"${data.postal}"
+      },
+      "street":"${data.street}",
+      "nrOfHouse":"${data.nrOfHouse}"
+    },
+    "deliverTo":{
+      "region":{
+        "postalCode":"${data.receiverPostal}"
+      },
+      "street":"${data.receiverStreet}",
+      "nrOfHouse":"${data.nrOfHouseReceiver}"
+    },
+    "insurance": 1000,
+    "sender":{"login": "admin2"},
+    "receiver":{"login": "${data.receiverLogin}"}
+    }`)
+    // "size": "${localStorage.getItem('size')}", "delivery": "${localStorage.getItem('delivery')}",
+    // "receiverName": "${data.receiverName}", "receiverMail": "${data.receiverMail}", "receiverTelephone": ${data.receiverTelephone},
+    // "receiverPostal": ${data.receiverPostal}, "receiverPlace": "${data.receiverPlace}", "receiverStreet": "${data.receiverStreet}"}`)
     console.log(this.data)
     this.parcel.sendParcel(this.data).subscribe((result)=> {
 

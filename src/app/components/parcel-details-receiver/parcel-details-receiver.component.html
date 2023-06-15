@@ -23,8 +23,8 @@
     Rozmiar: {{data.parcel.size}}<br>
     Adres wysyłki: {{data.parcel.deliverTo.region.city}} {{data.parcel.deliverTo.region.postalCode}}<br>
     Miejsce odbioru: {{data.parcel.deliverTo.street}} {{data.parcel.deliverTo.nrOfHouse}}<br>
-    Odbiorca: {{data.parcel.receiver.name}} {{data.parcel.receiver.surname}}<br>
-    Numer telefonu odbiorcy: {{data.parcel.receiver.phNumber}}<br>
+    Nadawca: {{data.parcel.sender.name}} {{data.parcel.sender.surname}}<br>
+    Numer telefonu nadawcy: {{data.parcel.sender.phNumber}}<br>
     Numer telefonu kuriera: {{data.parcel.courier.phNumber}}<br>
     Aktualny status: {{data.status[data.status.length-1].status.status}}<br><br>
     <button class="show-history" (click)="isShowing = !isShowing">Pokaż historię statusów</button>
@@ -40,8 +40,11 @@
         Status: {{item.alarm.alarm}}
       </div>
     </div>
-    <div class="close-div" *ngIf="data.status[data.status.length-1].status.code == 3 && data.a2a_code3_idle_open_courier_agree == true">
-      <button class="close" (click)="closeParcel()">Zamknij BlackBoxa</button>
+    <div class="open-div" *ngIf="data.status[data.status.length-1].status.code == 5 && data.a2a_code5_idle_open_courier_agree == true">
+      <button class="open" (click)="accessParcel()">Potwierdź otrzymanie przesyłki</button>
+    </div>
+    <div class="deliver-div" *ngIf="data.status[data.status.length-1].status.code == 5 && data.a2a_code5_idle_open_receiver_agree == true">
+      <button class="deliver" (click)="endTransaction()">Zakończ zlecenie</button>
     </div>
   </div>
   <div class="div4">

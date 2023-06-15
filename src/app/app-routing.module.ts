@@ -9,7 +9,10 @@ import { SendDetailsComponent } from './components/send-details/send-details.com
 import { ProfileComponent } from './components/profile/profile.component';
 import { DeliverComponent } from './components/deliver/deliver.component';
 import { PickupComponent } from './components/pickup/pickup.component';
-import { ParcelDetailsComponent } from './components/parcel-details/parcel-details.component'
+import { ParcelDetailsComponent } from './components/parcel-details/parcel-details.component';
+import { AcceptParcelComponent } from './components/accept-parcel/accept-parcel.component';
+import {ParcelDetailsCourierComponent} from "./components/parcel-details-courier/parcel-details-courier.component";
+import {ParcelDetailsReceiverComponent} from "./components/parcel-details-receiver/parcel-details-receiver.component";
 
 const routes: Routes = [
   { path: '', component: WelcomeAnimationComponent },
@@ -22,6 +25,10 @@ const routes: Routes = [
   { path: 'deliver', component: DeliverComponent },
   { path: 'pickup', component: PickupComponent },
   { path: 'parcel-details/:id', component: ParcelDetailsComponent },
+  { path: 'accept-parcel/:id', component: AcceptParcelComponent },
+  { path: 'parcel-details-courier/:id', component: ParcelDetailsCourierComponent },
+  { path: 'parcel-details-receiver/:id', component: ParcelDetailsReceiverComponent },
+
 ];
 
 @NgModule({

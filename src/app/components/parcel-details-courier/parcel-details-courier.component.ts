@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import * as L from 'leaflet';
+import * as L from "leaflet";
 import {ParcelsService} from "../../parcels.service";
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-parcel-details',
-  templateUrl: './parcel-details.component.html',
-  styleUrls: ['./parcel-details.component.css']
+  selector: 'app-parcel-details-courier',
+  templateUrl: './parcel-details-courier.component.html',
+  styleUrls: ['./parcel-details-courier.component.css']
 })
-export class ParcelDetailsComponent {
+export class ParcelDetailsCourierComponent {
   // @ts-ignore
   private map: L.Map;
   private centroid: L.LatLngExpression = [51.107883, 17.038538]; //wrocław
@@ -20,9 +20,9 @@ export class ParcelDetailsComponent {
   longitude: number;
   // @ts-ignore
   latitude: number;
-  messageJSON: any;
 
   id: any;
+  messageJSON: any;
 
   constructor(private parcel:ParcelsService, private route: ActivatedRoute) {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -52,14 +52,19 @@ export class ParcelDetailsComponent {
     });
 
     L.marker([this.latitude, this.longitude]).addTo(this.map)
-      .bindPopup('Tutaj znajduje się obecnie twoja paczka')
+      .bindPopup('Tutaj znajduje się obecnie paczka')
       .openPopup();
 
     tiles.addTo(this.map);
 
   }
-  closeParcel() {
-    this.parcel.closeParcel(this.id).subscribe((result)=> {
+  openParcel() {
+    this.parcel.openParcel(this.id).subscribe((result)=> {
+      this.popup(result)
+    })
+  }
+  deliverParcel() {
+    this.parcel.deliverParcel(this.id).subscribe((result)=> {
       this.popup(result)
     })
   }
@@ -69,5 +74,4 @@ export class ParcelDetailsComponent {
     this.messageJSON = JSON.parse(mess).message
     console.log(this.messageJSON)
   }
-
 }

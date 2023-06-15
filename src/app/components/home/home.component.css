@@ -1,6 +1,6 @@
 .packages-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-column-gap: 0;
   grid-row-gap: 0;
 }
@@ -76,7 +76,9 @@ img, .description {
 
 .menu-render {
   background-color: #FFFFFF;
-  grid-area: 2 / 1 / 6 / 4;
+  grid-area: 2 / 1 / 13 / 4;
+  max-height: 100vh;
+  overflow: auto;
 }
 
 mat-icon {

@@ -1,7 +1,7 @@
 .parent {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(12, 1fr);
+  grid-template-rows: repeat(13, 1fr);
   grid-column-gap: 0;
   grid-row-gap: 0;
   width: 100%;
@@ -63,6 +63,8 @@ button {
 .menu-render {
   background-color: #FFFFFF;
   grid-area: 2 / 1 / 13 / 4;
+  max-height: 100vh;
+  overflow: auto;
 }
 
 mat-icon {

@@ -10,22 +10,23 @@
   <div class="div3">
     <h2>Przesyłki nadane przeze mnie:</h2>
     <div class="packages-list">
-      <div class="container" *ngFor="let package of packagesList" routerLink="/parcel-details/{{package.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <div class="container" *ngFor="let item of packagesList" routerLink="/parcel-details/{{item.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
         <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
         <div class="description">
-          Do: {{package.to}}<br>
-          ID: {{package.id}}<br>
-          {{package.from}} &#8594; {{package.destination}}<br>
-          Status: {{package.status}}
+          Do: {{item.to}}<br>
+          ID: {{item.id}}<br>
+          {{item.from}} &#8594; {{item.destination}}<br>
+          Status: {{item.status}}
         </div>
       </div>
-      <div class="container" *ngFor="let item of data">
+      <div class="container" *ngFor="let item of data" routerLink="/parcel-details/{{item.parcel.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
         <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
         <div class="description">
-          Do: {{item.id}}<br>
-          ID: {{item.size}}<br>
-          {{item.deliverFrom}} &#8594; {{item.deliverTo}}<br>
-          Status: {{item.status}}
+          Do: {{item.parcel.receiver.name}} {{item.parcel.receiver.surname}}<br>
+          ID: {{item.parcel.id}}<br>
+          Rozmiar: {{item.parcel.size}}<br>
+          {{item.parcel.deliverFrom.region.city}} &#8594; {{item.parcel.deliverTo.region.city}}<br>
+          Status: {{item.status.status.status}}
         </div>
       </div>
     </div>
@@ -33,22 +34,22 @@
   <div class="div5">
     <h2>Przesyłki dostarczane przeze mnie:</h2>
     <div class="packages-list">
-      <div class="container" *ngFor="let package of packagesList">
+<!--      <div class="container" *ngFor="let package of packagesList">-->
+<!--        <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>-->
+<!--        <div class="description">-->
+<!--          Do: {{package.to}}<br>-->
+<!--          ID: {{package.id}}<br>-->
+<!--          {{package.from}} &#8594; {{package.destination}}<br>-->
+<!--          Status: {{package.status}}-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="container" *ngFor="let item of dataCourier" routerLink="/parcel-details-courier/{{item.parcel.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
         <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
         <div class="description">
-          Do: {{package.to}}<br>
-          ID: {{package.id}}<br>
-          {{package.from}} &#8594; {{package.destination}}<br>
-          Status: {{package.status}}
-        </div>
-      </div>
-      <div class="container" *ngFor="let item of data">
-        <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
-        <div class="description">
-          Do: {{item.id}}<br>
-          ID: {{item.size}}<br>
-          {{item.deliverFrom}} &#8594; {{item.deliverTo}}<br>
-          Status: {{item.status}}
+          Do: {{item.parcel.id}}<br>
+          ID: {{item.parcel.size}}<br>
+          {{item.parcel.deliverFrom.region.city}} &#8594; {{item.parcel.deliverTo.region.city}}<br>
+          Status: {{item.status.status.status}}
         </div>
       </div>
     </div>

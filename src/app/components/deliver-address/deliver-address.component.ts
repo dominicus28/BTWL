@@ -15,13 +15,15 @@ export class DeliverAddressComponent {
   }
 
 
-  // getSearchFormData(data: any) {
-  //   this.data = JSON.parse(`{"location": "${data.search}"}`)
-  //   console.log(this.data)
-  //   this.parcel.getParcelsFromAddress(this.data).subscribe((result)=> {
-  //
-  //   })
-  // }
+  getSearchFormData(data: any) {
+    let country = data.country
+    let province = data.province
+    let city = data.city
+    this.parcel.getParcelsFromAddress(country, province, city).subscribe(data=> {
+      console.warn(data)
+      this.data = data
+    })
+  }
   onPress() {
     this.display = !this.display;
   }

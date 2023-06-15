@@ -1,0 +1,26 @@
+.message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  top: 25%;
+  margin: auto;
+  width: 80%;
+  height: 10%;
+  text-align: center;
+  color: rgb(133, 126, 8);
+  background: rgba(205, 207, 209, .9);
+  padding-top: 7%;
+  border-radius: 10px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: #616161;
+  letter-spacing: 1px;
+  font-size: 120%;
+}
+
+.close-dialog {
+  width: 50%;
+  text-decoration: none;
+  font-size: 4vmin;
+}

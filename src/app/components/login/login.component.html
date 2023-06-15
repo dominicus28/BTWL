@@ -6,9 +6,9 @@
       <button class="astext" routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Zarejestruj</button>
     </div>
   <div class="div3">
-    <form id="login-form">
-      <input type="email" id="email" name="mail" placeholder="Adres email"><br><br>
-      <input type="password" id="password" name="password" placeholder="Hasło"><br>
+    <form id="login-form" #userForm="ngForm">
+      <input type="text" id="login" name="login" placeholder="Login" ngModel><br><br>
+      <input type="password" id="password" name="password" placeholder="Hasło" ngModel><br>
     </form>
   </div>
 <!--  <div class="div4"> </div>-->
@@ -18,7 +18,7 @@
   </div>
   <div class="div7"> </div>
   <div class="div8">
-    <input class="login-button" form="login-form" type="submit" value="Zaloguj się!" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">
+    <input class="login-button" form="login-form" type="submit" value="Zaloguj się!" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="loginUser(userForm.value)">
   </div>
   <div class="div9"> </div>
   <div class="div10">

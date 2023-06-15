@@ -5,18 +5,35 @@
     </button>
   </div>
   <div class="div2">
-    <div class="title">Odbieram paczkę</div>
+    <div class="title">Moje paczki</div>
   </div>
   <div class="div3">
-    <h2>Przesyłki do odebrania:</h2>
-<!--    <form #userForm="ngForm" id="search-form" (ngSubmit)="getSearchFormData(userForm.value)">-->
-<!--      <br><input class="search-input" ngModel name="search" id="search" type="search" placeholder="Wprowadź adres MAC">-->
-<!--    </form>-->
+    <h2>Przesyłki nadane do mnie:</h2>
+    <div class="packages-list">
+      <!--      <div class="container" *ngFor="let item of packagesList" routerLink="/parcel-details/{{package.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">-->
+      <!--        <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>-->
+      <!--        <div class="description">-->
+      <!--          Do: {{package.to}}<br>-->
+      <!--          ID: {{package.id}}<br>-->
+      <!--          {{package.from}} &#8594; {{package.destination}}<br>-->
+      <!--          Status: {{package.status}}-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <div class="container" *ngFor="let item of dataReceiver" routerLink="/parcel-details-receiver/{{item.parcel.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
+        <div class="description">
+          Od: {{item.parcel.sender.name}} {{item.parcel.sender.surname}}<br>
+          ID: {{item.parcel.id}}<br>
+          Rozmiar: {{item.parcel.size}}<br>
+          {{item.parcel.deliverFrom.region.city}} &#8594; {{item.parcel.deliverTo.region.city}}<br>
+          Status: {{item.status.status.status}}
+        </div>
+      </div>
+    </div>
   </div>
-<!--  <div class="div4">-->
-<!--    <input class="search-button" type="submit" form="search-form" value="Odbierz">-->
-<!--  </div>-->
   <div class="menu-render" *ngIf="display">
     <app-menu></app-menu>
   </div>
 </div>
+
+

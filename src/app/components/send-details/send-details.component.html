@@ -11,19 +11,14 @@
     <br>
     <form ngNativeValidate id="second-send-form" #userForm="ngForm" (ngSubmit)="getSendFormData(userForm.value)">
       <label>Dane nadawcy:</label>
-      <input type="text" ngModel required id="name" name="name" placeholder="Imię i nazwisko"><br><br>
-      <input type="email" ngModel required id="email" name="mail" placeholder="Adres email"><br><br>
-      <input type="number" ngModel required id="telephone" name="telephone" placeholder="Numer telefonu"><br><br>
-      <input type="number" ngModel required id="postal" name="postal" placeholder="Kod pocztowy"><br><br>
-      <input type="text" ngModel required id="place" name="place" placeholder="Miejscowość"><br><br>
+      <input type="text" ngModel required id="postal" name="postal" placeholder="Kod pocztowy"><br><br>
       <input type="text" ngModel required id="street" name="street" placeholder="Ulica"><br><br>
+      <input type="text" ngModel required id="nrOfHouse" name="nrOfHouse" placeholder="Numer domu"><br><br>
       <label>Dane odbiorcy:</label>
-      <input type="text" ngModel required id="receiverName" name="receiverName" placeholder="Imię i nazwisko"><br><br>
-      <input type="email" ngModel required id="receiverMail" name="receiverMail" placeholder="Adres email"><br><br>
-      <input type="number" ngModel required id="receiverTelephone" name="receiverTelephone" placeholder="Numer telefonu"><br><br>
-      <input type="number" ngModel required id="receiverPostal" name="receiverPostal" placeholder="Kod pocztowy"><br><br>
-      <input type="text" ngModel required id="receiverPlace" name="receiverPlace" placeholder="Miejscowość"><br><br>
+      <input type="text" ngModel required id="receiverLogin" name="receiverLogin" placeholder="Login odbiorcy"><br><br>
+      <input type="text" ngModel required id="receiverPostal" name="receiverPostal" placeholder="Kod pocztowy"><br><br>
       <input type="text" ngModel required id="receiverStreet" name="receiverStreet" placeholder="Ulica"><br><br>
+      <input type="text" ngModel required id="nrOfHouseReceiver" name="nrOfHouseReceiver" placeholder="Numer domu"><br><br>
     </form>
   </div>
   <div class="div4">

@@ -1,0 +1,34 @@
+<div class="parent">
+  <div class="div1">
+    <button mat-button class="menu-button" (click)="onPress()">
+      <mat-icon [inline]="true">menu</mat-icon>
+    </button>
+  </div>
+  <div class="div2">
+    <div class="title">Szczegóły paczki</div>
+  </div>
+  <div class="div3">
+    <h2>Dane dotyczące przesyłki</h2>
+    ID: {{data.parcel.id}}<br>
+    Rozmiar: {{data.parcel.size}}<br>
+    Adres wysyłki: {{data.parcel.deliverTo.region.city}} {{data.parcel.deliverTo.region.postalCode}}<br>
+    Miejsce odbioru: {{data.parcel.deliverTo.street}} {{data.parcel.deliverTo.nrOfHouse}}<br>
+    Odbiorca: {{data.parcel.receiver.name}} {{data.parcel.receiver.surname}}<br>
+    Nadawca: {{data.parcel.sender.name}} {{data.parcel.sender.surname}}<br>
+    Numer telefonu odbiorcy: {{data.parcel.receiver.phNumber}}<br>
+    Numer telefonu nadawcy: {{data.parcel.sender.phNumber}}<br><br>
+  </div>
+  <div class="div4">
+    <br><input class="accept-button" type="submit" (click)="isShowing = !isShowing" (click)="acceptParcel()" value="Akceptuj zlecenie">
+  </div>
+  <div class="div5" *ngIf="isShowing">
+    <form #userForm="ngForm" id="mac-form" (ngSubmit)="getMacFormData(userForm.value)">
+      <br><input class="search-input" ngModel name="mac" id="mac" type="text" placeholder="Wprowadź adres MAC">
+    </form>
+    <input class="accept-button" id="accept" type="submit" form="mac-form" value="Potwierdź">
+  </div>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
+</div>
+

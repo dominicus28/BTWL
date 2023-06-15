@@ -8,24 +8,27 @@
     <div class="title">Dostarczam paczkę</div>
   </div>
   <div class="div3">
-<!--    <form #userForm="ngForm" id="search-form" (ngSubmit)="getSearchFormData(userForm.value)">-->
-<!--      <br><input class="search-input" ngModel name="search" id="search" type="search" placeholder="Wprowadź miasto">-->
-<!--    </form>-->
-    <div class="packages-list"> <!-- *ngIf="userForm.valid" -->
-      <div class="container" *ngFor="let item of data">
+    <form #userForm="ngForm" id="search-form" (ngSubmit)="getSearchFormData(userForm.value)">
+      <br><br><input class="search-input" ngModel name="country" id="country" type="search" placeholder="Kraj"><br><br>
+      <input class="search-input" ngModel name="province" id="province" type="search" placeholder="Województwo"><br><br>
+      <input class="search-input" ngModel name="city" id="city" type="search" placeholder="Miasto"><br><br>
+    </form>
+  </div>
+  <div class="div4">
+    <input class="search-button" type="submit" form="search-form" value="Szukaj">
+  </div>
+  <div class="div5">
+    <div class="packages-list">
+      <div class="container" *ngFor="let item of data" routerLink="/accept-parcel/{{item.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
         <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
         <div class="description">
-          Do: {{item.id}}<br>
-          ID: {{item.size}}<br>
-          {{item.deliverFrom}} &#8594; {{item.deliverTo}}<br>
-<!--          Status: {{item.status}}-->
+          ID: {{item.id}}<br>
+          Rozmiar: {{item.size}}<br>
+          {{item.deliverFrom.region.city}} &#8594; {{item.deliverTo.region.city}}<br>
         </div>
       </div>
     </div>
   </div>
-<!--  <div class="div4">-->
-<!--    <input class="search-button" type="submit" form="search-form" value="Szukaj">-->
-<!--  </div>-->
   <div class="menu-render" *ngIf="display">
     <app-menu></app-menu>
   </div>
