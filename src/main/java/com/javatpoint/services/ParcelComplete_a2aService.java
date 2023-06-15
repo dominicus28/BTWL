@@ -133,7 +133,7 @@ public class ParcelComplete_a2aService {
                 }
                 /* Check if package's message is from prevoius state */
                 else if(pCa2a.a2a_code3_idle_open_courier_agree == false && pCa2a.a2a_code3_idle_open_box_ack.getAck() == false) {
-                    if(message.getProtect() == pCa2a.a2a_code3_idle_open_box_ack.getProtect() && message.getOpen() == pCa2a.a2a_code3_idle_open_box_ack.getOpen()) {
+                    if(message.getProtect() == pCa2a.a2a_code1_idle_close_box_ack.getProtect() && message.getOpen() == pCa2a.a2a_code1_idle_close_box_ack.getOpen()) {
                         if(message.getAck() == true) {
                             // pCa2a.a2a_code3_idle_open_box_ack.setAck();
                             // parcelCompleteRepository.setA2a_code3_protect_close_box_ack(pCa2a.getId().toString());
