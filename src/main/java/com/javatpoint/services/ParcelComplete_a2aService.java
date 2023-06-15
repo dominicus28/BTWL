@@ -19,6 +19,7 @@ public class ParcelComplete_a2aService {
     private final BoxRepository boxRepository;
     private final StatusRepository statusRepository;
     private final TimestampStatusRepository tsStatusRepository;
+    private final Message default_message;
 
     ParcelComplete_a2aService(ParcelCompleteRepository parcelCompleteRepository,
                             //   TimestampAlarm tsAlarmReository,
