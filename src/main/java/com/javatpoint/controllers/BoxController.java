@@ -18,14 +18,18 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.javatpoint.models.Alarm;
 import com.javatpoint.models.Box;
 import com.javatpoint.models.Message;
 import com.javatpoint.models.ParcelComplete_a2a;
 import com.javatpoint.models.Telemetry;
+import com.javatpoint.models.TimestampAlarm;
 import com.javatpoint.models.TimestampTelemetry;
+import com.javatpoint.repositories.AlarmRepository;
 import com.javatpoint.repositories.BoxRepository;
 import com.javatpoint.repositories.ParcelCompleteRepository;
 import com.javatpoint.repositories.TelemetryRepository;
+import com.javatpoint.repositories.TimestampAlarmRepository;
 import com.javatpoint.repositories.TimestampTelemetryRepository;
 //import org.springframework.web.bind.annotation.PutMapping;
 import com.javatpoint.services.ParcelComplete_a2aService;
@@ -38,6 +42,8 @@ public class BoxController {
     private final ParcelComplete_a2aService cCa2aService;
     private final ParcelCompleteRepository parcelCompleteRepository;
     private final TimestampTelemetryRepository tsTelemetryRepository;
+    private final AlarmRepository alarmRepository;
+    private final TimestampAlarmRepository tsAlarmRepository;
 
     private final Message default_message; //TODO delete
 
@@ -45,12 +51,16 @@ public class BoxController {
                          MongoTemplate mongoTemplate,
                          ParcelComplete_a2aService cCa2aService,
                          ParcelCompleteRepository parcelCompleteRepository,
-                         TimestampTelemetryRepository tsTelemetryRepository) {
+                         TimestampTelemetryRepository tsTelemetryRepository,
+                         AlarmRepository alarmRepository,
+                         TimestampAlarmRepository tsAlarmRepository) {
         this.boxRepository = boxRepository;
         this.mongoTemplate = mongoTemplate;
         this.cCa2aService = cCa2aService;
         this.parcelCompleteRepository = parcelCompleteRepository;
         this.tsTelemetryRepository = tsTelemetryRepository;
+        this.alarmRepository = alarmRepository;
+        this.tsAlarmRepository = tsAlarmRepository;
         
         default_message = new Message(false, false); //TODO delete
     }
@@ -112,13 +122,36 @@ public class BoxController {
         Box box = boxRepository.findOne(mac);
 
         if(box != null && box.getParcelComplete() != null) {
-            /* Add new telemetry to the box and a parcel complete*/
+            /* Add new telemetry to the box and a parcel complete*///TODO change a2a to universal - ParcelComplete
             ParcelComplete_a2a cCa2a = parcelCompleteRepository.findOneParcelComplete_a2a(box.getParcelComplete().getId().toString());
             TimestampTelemetry tsTel = tsTelemetryRepository.save(new TimestampTelemetry(newTelemetry));
             parcelCompleteRepository.addTelemetry(box.getParcelComplete().getId().toString(), tsTel);
             boxRepository.addTelemetry(box.getMac().toString(), tsTel);
 
             Message systemMessage = cCa2aService.getMessage(cCa2a);
+            return new ResponseEntity<Message>(systemMessage, null, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Message>(default_message, null, HttpStatus.OK);
+        }
+     }
+
+     /* Post new alarm */
+     @PostMapping("/boxes/{mac}/alarms")
+     public ResponseEntity createAlarmBox(@PathVariable String mac, @RequestBody Alarm newAlarm) {
+        Box box = boxRepository.findOne(mac);
+
+        if(box != null && box.getParcelComplete() != null) {
+            /* Add new telemetry to the box and a parcel complete*///TODO change a2a to universal - ParcelComplete
+            ParcelComplete_a2a pCa2a = parcelCompleteRepository.findOneParcelComplete_a2a(box.getParcelComplete().getId().toString());
+            
+            /* find alarm with code x */
+            Alarm alarm = alarmRepository.find(newAlarm.getCode());
+            
+            TimestampAlarm tsAlarm = tsAlarmRepository.save(new TimestampAlarm(alarm));
+            parcelCompleteRepository.addAlarm(box.getParcelComplete().getId().toString(), tsAlarm);
+            boxRepository.addAlarm(box.getMac().toString(), tsAlarm);
+
+            Message systemMessage = cCa2aService.getMessage(pCa2a);
             return new ResponseEntity<Message>(systemMessage, null, HttpStatus.OK);
         } else {
             return new ResponseEntity<Message>(default_message, null, HttpStatus.OK);

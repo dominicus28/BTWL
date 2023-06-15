@@ -91,7 +91,7 @@ public class ParcelController {
     public ResponseEntity getSendersParcels(@PathVariable String login)
     {
         List<ParcelBrief> pC = parcelCompleteRepository.findSendersParcelBriefs(login);
-
+        //TODO sprawdź czy box odpowiedział w czasie
         return new ResponseEntity<List<ParcelBrief>>(pC, null, HttpStatus.OK);
     }
 
@@ -99,7 +99,7 @@ public class ParcelController {
     public ResponseEntity getReceiversParcels(@PathVariable String login)
     {
         List<ParcelBrief> pC = parcelCompleteRepository.findReceiversParcelBriefs(login);
-
+        //TODO sprawdź czy box odpowiedział w czasie
         return new ResponseEntity<List<ParcelBrief>>(pC, null, HttpStatus.OK);
     }
 
@@ -107,7 +107,7 @@ public class ParcelController {
     public ResponseEntity getCouriersParcels(@PathVariable String login)
     {
         List<ParcelBrief> pC = parcelCompleteRepository.findCouriersParcelBriefs(login);
-
+        //TODO sprawdź czy box odpowiedział w czasie
         return new ResponseEntity<List<ParcelBrief>>(pC, null, HttpStatus.OK);
     }
 
@@ -126,7 +126,7 @@ public class ParcelController {
     public ParcelComplete getParcelComplete(@PathVariable String id)
     {
         Query query = new Query();
-        
+        //TODO sprawdź czy box odpowiedział w czasie
         query.addCriteria(Criteria.where("parcel.id").is(id));//parcel.id
         
         return mongoTemplate.findOne(query, ParcelComplete.class);
@@ -399,4 +399,5 @@ public class ParcelController {
     
         return new ResponseEntity<ErrorMessage>(new ErrorMessage("Message to the box is being sent"), null, HttpStatus.OK);
     }
+
 }

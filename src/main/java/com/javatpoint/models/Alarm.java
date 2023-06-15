@@ -3,8 +3,7 @@ package com.javatpoint.models;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 public class Alarm {
-    @DocumentReference
-    private String mac;
+    private String alarm;
     private char code;
     // private Telemetry telemetry;
 
@@ -16,6 +15,14 @@ public class Alarm {
         // this.telemetry = telemetry;
     }
     
+        public String getAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(String alarm) {
+        this.alarm = alarm;
+    }
+
     public char getCode() {
         return code;
     }
