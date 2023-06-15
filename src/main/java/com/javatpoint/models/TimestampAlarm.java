@@ -1,5 +1,7 @@
 package com.javatpoint.models;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -12,6 +14,7 @@ public class TimestampAlarm extends TimestampObject {
 
     public TimestampAlarm(Alarm alarm) {
         super();
+        this.time = LocalDateTime.now();
         this.alarm = alarm;
     }
 

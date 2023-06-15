@@ -1,10 +1,17 @@
 package com.javatpoint.models;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Alarm {
+    @Id
+    @JsonIgnore
+    private ObjectId id;
     private String alarm;
-    private char code;
+    private int code;
     // private Telemetry telemetry;
 
     public Alarm() {
@@ -23,10 +30,10 @@ public class Alarm {
         this.alarm = alarm;
     }
 
-    public char getCode() {
+    public int getCode() {
         return code;
     }
-    public void setCode(char code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
