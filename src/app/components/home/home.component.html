@@ -10,15 +10,15 @@
   <div class="div3">
     <h2>Przesyłki nadane przeze mnie:</h2>
     <div class="packages-list">
-      <div class="container" *ngFor="let item of packagesList" routerLink="/parcel-details/{{item.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
-        <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
-        <div class="description">
-          Do: {{item.to}}<br>
-          ID: {{item.id}}<br>
-          {{item.from}} &#8594; {{item.destination}}<br>
-          Status: {{item.status}}
-        </div>
-      </div>
+<!--      <div class="container" *ngFor="let item of packagesList" routerLink="/parcel-details/{{item.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">-->
+<!--        <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>-->
+<!--        <div class="description">-->
+<!--          Do: {{item.to}}<br>-->
+<!--          ID: {{item.id}}<br>-->
+<!--          {{item.from}} &#8594; {{item.destination}}<br>-->
+<!--          Status: {{item.status}}-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="container" *ngFor="let item of data" routerLink="/parcel-details/{{item.parcel.id}}" routerLinkActive="active" ariaCurrentWhenActive="page">
         <img src = "assets/images/package_list_icon.svg" alt="Icon of package"/>
         <div class="description">

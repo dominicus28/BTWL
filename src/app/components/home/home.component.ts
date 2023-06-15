@@ -23,71 +23,71 @@ export class HomeComponent {
       this.dataCourier = data
     })
   }
-  packagesList = [
-    {
-      to: "Jan Kowalski",
-      id: 110043,
-      from: "Wrocław",
-      destination: "Leśnica",
-      status: "czeka na umieszczenie w BlackBoxie"
-    },
-    {
-      to: "Mirosław Close",
-      id: 987313,
-      from: "Wrocław",
-      destination: "Kąty Wrocławskie",
-      status: "w drodze"
-    },
-    {
-      to: "Ilona Nowak",
-      id: 12223,
-      from: "Wrocław Psie Pole",
-      destination: "Wrocław Muchobór",
-      status: "czeka na ofertę"
-    },
-    {
-      to: "Jan Kowalski",
-      id: 110043,
-      from: "Wrocław",
-      destination: "Leśnica",
-      status: "czeka na umieszczenie w BlackBoxie"
-    },
-    {
-      to: "Mirosław Close",
-      id: 987313,
-      from: "Wrocław",
-      destination: "Kąty Wrocławskie",
-      status: "w drodze"
-    },
-    {
-      to: "Ilona Nowak",
-      id: 12223,
-      from: "Wrocław Psie Pole",
-      destination: "Wrocław Muchobór",
-      status: "czeka na ofertę"
-    },
-    {
-      to: "Jan Kowalski",
-      id: 110043,
-      from: "Wrocław",
-      destination: "Leśnica",
-      status: "czeka na umieszczenie w BlackBoxie"
-    },
-    {
-      to: "Mirosław Close",
-      id: 987313,
-      from: "Wrocław",
-      destination: "Kąty Wrocławskie",
-      status: "w drodze"
-    },
-    {
-      to: "Ilona Nowak",
-      id: 12223,
-      from: "Wrocław Psie Pole",
-      destination: "Wrocław Muchobór",
-      status: "czeka na ofertę"
-    }
-  ]
+  // packagesList = [
+  //   {
+  //     to: "Jan Kowalski",
+  //     id: 110043,
+  //     from: "Wrocław",
+  //     destination: "Leśnica",
+  //     status: "czeka na umieszczenie w BlackBoxie"
+  //   },
+  //   {
+  //     to: "Mirosław Close",
+  //     id: 987313,
+  //     from: "Wrocław",
+  //     destination: "Kąty Wrocławskie",
+  //     status: "w drodze"
+  //   },
+  //   {
+  //     to: "Ilona Nowak",
+  //     id: 12223,
+  //     from: "Wrocław Psie Pole",
+  //     destination: "Wrocław Muchobór",
+  //     status: "czeka na ofertę"
+  //   },
+  //   {
+  //     to: "Jan Kowalski",
+  //     id: 110043,
+  //     from: "Wrocław",
+  //     destination: "Leśnica",
+  //     status: "czeka na umieszczenie w BlackBoxie"
+  //   },
+  //   {
+  //     to: "Mirosław Close",
+  //     id: 987313,
+  //     from: "Wrocław",
+  //     destination: "Kąty Wrocławskie",
+  //     status: "w drodze"
+  //   },
+  //   {
+  //     to: "Ilona Nowak",
+  //     id: 12223,
+  //     from: "Wrocław Psie Pole",
+  //     destination: "Wrocław Muchobór",
+  //     status: "czeka na ofertę"
+  //   },
+  //   {
+  //     to: "Jan Kowalski",
+  //     id: 110043,
+  //     from: "Wrocław",
+  //     destination: "Leśnica",
+  //     status: "czeka na umieszczenie w BlackBoxie"
+  //   },
+  //   {
+  //     to: "Mirosław Close",
+  //     id: 987313,
+  //     from: "Wrocław",
+  //     destination: "Kąty Wrocławskie",
+  //     status: "w drodze"
+  //   },
+  //   {
+  //     to: "Ilona Nowak",
+  //     id: 12223,
+  //     from: "Wrocław Psie Pole",
+  //     destination: "Wrocław Muchobór",
+  //     status: "czeka na ofertę"
+  //   }
+  // ]
   onPress() {
     this.display = !this.display;
   }
