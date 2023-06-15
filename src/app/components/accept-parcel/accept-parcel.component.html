@@ -4,6 +4,9 @@
       <mat-icon [inline]="true">menu</mat-icon>
     </button>
   </div>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
   <div class="div2">
     <div class="title">Szczegóły paczki</div>
   </div>
@@ -26,9 +29,6 @@
       <br><input class="search-input" ngModel name="mac" id="mac" type="text" placeholder="Wprowadź adres MAC">
     </form>
     <input class="accept-button" id="accept" type="submit" form="mac-form" value="Potwierdź">
-  </div>
-  <div class="menu-render" *ngIf="display">
-    <app-menu></app-menu>
   </div>
 </div>
 

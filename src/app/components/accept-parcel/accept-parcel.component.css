@@ -59,17 +59,6 @@ h2 {
   font-size: 6vmin;
 }
 
-.menu-render {
-  background-color: #FFFFFF;
-  grid-area: 2 / 1 / 13 / 4;
-  max-height: 100vh;
-  overflow: auto;
-}
-
-mat-icon {
-  margin-top: 2vh;
-}
-
 .search-input {
   width: 95%;
   font-size: 6vmin;

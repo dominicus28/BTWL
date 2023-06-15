@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as L from 'leaflet';
 import {ParcelsService} from "../../parcels.service";
 import { ActivatedRoute } from '@angular/router';
+import { AppComponent } from "../../app.component";
 
 @Component({
   selector: 'app-parcel-details',
@@ -24,7 +25,7 @@ export class ParcelDetailsComponent {
 
   id: any;
 
-  constructor(private parcel:ParcelsService, private route: ActivatedRoute) {
+  constructor(private parcel:ParcelsService, private route: ActivatedRoute, private app:AppComponent) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.parcel.getParcelDetails(this.id).subscribe(data=>{
       console.warn(data)
@@ -60,14 +61,11 @@ export class ParcelDetailsComponent {
   }
   closeParcel() {
     this.parcel.closeParcel(this.id).subscribe((result)=> {
-      this.popup(result)
-    })
+      this.app.popup(result, "ok")
+    }, err => {
+      this.app.popup(err, "error")
+    });
   }
 
-  popup(result: any){
-    let mess = JSON.stringify(result)
-    this.messageJSON = JSON.parse(mess).message
-    console.log(this.messageJSON)
-  }
 
 }

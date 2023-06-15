@@ -1,30 +1,3 @@
-.message {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 50%;
-  top: 25%;
-  margin: auto;
-  width: 80%;
-  height: 10%;
-  text-align: center;
-  color: rgb(133, 126, 8);
-  background: rgba(205, 207, 209, .9);
-  padding-top: 7%;
-  border-radius: 10px;
-  border-width: 3px;
-  border-style: solid;
-  border-color: #616161;
-  letter-spacing: 1px;
-  font-size: 120%;
-}
-
-.close-dialog {
-  width: 50%;
-  text-decoration: none;
-  font-size: 4vmin;
-}
-
 .parent {
   display: grid;
   overflow: scroll;
@@ -71,7 +44,7 @@ h2 {
   height: 80%;
 }
 
-button:not(.show-history, .open, .deliver) {
+button:not(.show-history, .open, .deliver, .close-dialog) {
   width: 100%;
   height: 100%;
   font-size: 10vmin;
@@ -107,23 +80,3 @@ button:not(.show-history, .open, .deliver) {
   margin-top: 5%;
 }
 
-.menu-render {
-  background-color: #FFFFFF;
-  grid-area: 2 / 1 / 13 / 4;
-  max-height: 100vh;
-  overflow: auto;
-}
-
-mat-icon {
-  margin-top: 2vh;
-}
-
-#map {
-  height: 100%;
-  width: 100%;
-}
-
-.map-frame {
-  border: 1px solid black;
-  height: 100%;
-}

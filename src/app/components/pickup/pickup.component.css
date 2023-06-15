@@ -74,15 +74,4 @@ img, .description {
   float: left;
 }
 
-.menu-render {
-  background-color: #FFFFFF;
-  grid-area: 2 / 1 / 13 / 4;
-  max-height: 100vh;
-  overflow: auto;
-}
-
-mat-icon {
-  margin-top: 2vh;
-}
-
 

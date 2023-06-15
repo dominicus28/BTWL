@@ -1,2 +1,6 @@
+<div class="message" *ngIf="showMess">
+  {{messageJSON}}<br><br>
+  <button class="close-dialog" (click)="showMess=false">Zamknij</button>
+</div>
 <router-outlet></router-outlet>
 

@@ -80,13 +80,6 @@ button {
   font-size: 6vmin;
 }
 
-.menu-render {
-  background-color: #FFFFFF;
-  grid-area: 2 / 1 / 13 / 4;
-  max-height: 100vh;
-  overflow: auto;
-}
-
 .send-render {
   background-color: #f8f8f8;
   width: 100%;
@@ -94,8 +87,5 @@ button {
   grid-area: 1 / 1 / 13 / 6;
 }
 
-mat-icon {
-  margin-top: 2vh;
-}
 
 
