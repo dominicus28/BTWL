@@ -139,10 +139,10 @@ public class ParcelComplete_a2aService {
                         parcelCompleteRepository.setA2a_code1_idle_close_box_ack(pCa2a.getId().toString());
                     }
 
-                        return pCa2a.a2a_code3_idle_open_box_ack;
+                        return pCa2a.a2a_code1_idle_close_box_ack;
                     } else {
                         /* ERROR, that shouldn'h have happened */
-                        return pCa2a.a2a_code3_idle_open_box_ack;
+                        return pCa2a.a2a_code1_idle_close_box_ack;
                     }
                 } else {
                     /* ERROR, that shouldn'h have happened */
