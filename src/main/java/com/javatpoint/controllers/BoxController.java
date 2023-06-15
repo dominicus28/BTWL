@@ -63,6 +63,7 @@ public class BoxController {
         this.tsAlarmRepository = tsAlarmRepository;
         
         default_message = new Message(false, false); //TODO delete
+        default_message.setAck();
     }
 
     /* Returns all Box data */
