@@ -41,7 +41,7 @@
     <div class="alarms" *ngIf="isShowing">
       <div *ngFor="let item of data.alarm">
         Czas: {{item.time}}<br>
-        Status: {{item.alarm.alarm}}
+        Alarm: {{item.alarm.alarm}}
       </div>
     </div>
     <div class="close-div" *ngIf="data.status[data.status.length-1].status.code == 3 && data.a2a_code3_idle_open_courier_agree == true">
