@@ -102,9 +102,15 @@ public class ParcelCompleteRepository{
         query1.addCriteria(Criteria.where("login").is(login));
         User user =  mongoTemplate.findOne(query1, User.class);
 
+        if(user == null)
+            return null;
+        
         Query query2 = new Query();
         query2.addCriteria(Criteria.where("sender.id").is(user.getId().toString()));
         List<Parcel> parcels = mongoTemplate.find(query2, Parcel.class);
+
+        if(parcels.size() == 0)
+            return null;
 
         Query query = new Query();
         List<Criteria> lCryt = new ArrayList<Criteria>();
@@ -132,10 +138,16 @@ public class ParcelCompleteRepository{
         query1.addCriteria(Criteria.where("login").is(login));
         User user =  mongoTemplate.findOne(query1, User.class);
 
+        if(user == null)
+            return null;
+        
         Query query2 = new Query();
         query2.addCriteria(Criteria.where("receiver.id").is(user.getId().toString()));
         List<Parcel> parcels = mongoTemplate.find(query2, Parcel.class);
 
+        if(parcels.size() == 0)
+            return null;
+        
         Query query = new Query();
         List<Criteria> lCryt = new ArrayList<Criteria>();
         
@@ -162,10 +174,16 @@ public class ParcelCompleteRepository{
         query1.addCriteria(Criteria.where("login").is(login));
         User user =  mongoTemplate.findOne(query1, User.class);
 
+        if(user == null)
+            return null;
+        
         Query query2 = new Query();
         query2.addCriteria(Criteria.where("courier.id").is(user.getId().toString()));
         List<Parcel> parcels = mongoTemplate.find(query2, Parcel.class);
 
+        if(parcels.size() == 0)
+            return null;
+        
         Query query = new Query();
         List<Criteria> lCryt = new ArrayList<Criteria>();
         
@@ -215,17 +233,26 @@ public class ParcelCompleteRepository{
         
         List<ParcelComplete> pCs = findSendersParcelCompletes(login);
 
+        if(pCs == null)
+            return new ArrayList<ParcelBrief>();
+
         return pCTopB(pCs);
     }
     public List<ParcelBrief> findReceiversParcelBriefs(String login) {
         
-        List<ParcelComplete> pCs = findSendersParcelCompletes(login);
+        List<ParcelComplete> pCs = findReceiversParcelCompletes(login);
+
+        if(pCs == null)
+            return new ArrayList<ParcelBrief>();
 
         return pCTopB(pCs);
     }
     public List<ParcelBrief> findCouriersParcelBriefs(String login) {
         
-        List<ParcelComplete> pCs = findSendersParcelCompletes(login);
+        List<ParcelComplete> pCs = findCouriersParcelCompletes(login);
+
+        if(pCs == null)
+            return new ArrayList<ParcelBrief>();
 
         return pCTopB(pCs);
     }
