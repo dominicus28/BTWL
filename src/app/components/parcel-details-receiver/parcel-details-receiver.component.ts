@@ -31,7 +31,7 @@ export class ParcelDetailsReceiverComponent {
     this.parcel.getParcelDetails(this.id).subscribe(data=>{
       console.warn(data)
       this.data = data
-      if (!this.data.telemetry == null) {
+      if (!(this.data.telemetry == null)) {
         this.nullTelemetry = false;
         this.longitude = parseFloat(this.data.telemetry[this.data.telemetry.length-1].telemetry.longitude)
         this.latitude = parseFloat(this.data.telemetry[this.data.telemetry.length-1].telemetry.latitude)
