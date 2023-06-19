@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import {ParcelsService} from '../../parcels.service'
+import {LocalService} from "../../local.service";
 
 @Component({
   selector: 'app-send-details',
@@ -10,7 +11,7 @@ export class SendDetailsComponent {
   display = false;
   data: String = "";
 
-  constructor(private parcel:ParcelsService) {
+  constructor(private parcel:ParcelsService, private localStore: LocalService) {
 
   }
 
@@ -19,25 +20,28 @@ export class SendDetailsComponent {
   }
 
   getSendFormData(data: any) {
+    let login = this.localStore.getData('login')
     this.data = JSON.parse(`
     {
     "size": "A",
     "deliverFrom": {
       "region":{
-        "postalCode":"${data.postal}"
+        "postalCode":"${data.postal}",
+        "city": "${data.city}"
       },
       "street":"${data.street}",
       "nrOfHouse":"${data.nrOfHouse}"
     },
     "deliverTo":{
       "region":{
-        "postalCode":"${data.receiverPostal}"
+        "postalCode":"${data.receiverPostal}",
+        "city": "${data.cityReceiver}"
       },
       "street":"${data.receiverStreet}",
       "nrOfHouse":"${data.nrOfHouseReceiver}"
     },
     "insurance": 1000,
-    "sender":{"login": "admin2"},
+    "sender":{"login": "${login}"},
     "receiver":{"login": "${data.receiverLogin}"}
     }`)
     // "size": "${localStorage.getItem('size')}", "delivery": "${localStorage.getItem('delivery')}",

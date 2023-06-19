@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ParcelsService} from "../../parcels.service";
 import {ActivatedRoute} from "@angular/router";
 import { AppComponent } from "../../app.component";
+import {LocalService} from "../../local.service";
 
 @Component({
   selector: 'app-accept-parcel',
@@ -14,7 +15,7 @@ export class AcceptParcelComponent {
   isShowing: boolean = false;
   id: any;
 
-  constructor(private parcel:ParcelsService, private route: ActivatedRoute, private app:AppComponent) {
+  constructor(private parcel:ParcelsService, private route: ActivatedRoute, private app:AppComponent,  private localStore: LocalService) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.parcel.getParcelDetails(this.id).subscribe(data=>{
       console.warn(data)
@@ -23,9 +24,10 @@ export class AcceptParcelComponent {
   }
 
   acceptParcel() {
+    let login = this.localStore.getData('login')
     this.data = JSON.parse(`
     {
-    "login": "admin2"
+    "login": "${login}"
     }`)
     console.log(this.data)
     this.parcel.acceptParcel(this.data, this.id).subscribe((result)=> {

@@ -4,16 +4,13 @@
       <mat-icon [inline]="true">menu</mat-icon>
     </button>
   </div>
+  <div class="menu-render" *ngIf="display">
+    <app-menu></app-menu>
+  </div>
   <div class="div2">
     <div class="title">Szczegóły paczki</div>
   </div>
   <div class="div3">
-    <h2>Telemetria</h2>
-    Temperatura: {{data.telemetry[data.telemetry.length-1].telemetry.temperature}}<br>
-    Bateria: {{data.telemetry[data.telemetry.length-1].telemetry.batteryStatus}}%<br>
-    Maksymalne przyspieszenie: {{data.telemetry[data.telemetry.length-1].telemetry.maxAcceleration}}<br>
-    Wilgotność: {{data.telemetry[data.telemetry.length-1].telemetry.humidity}}%<br>
-    Adres MAC BlackBoxa: {{data.parcel.box.mac}}<br>
     <h2>Dane dotyczące przesyłki</h2>
     ID: {{data.parcel.id}}<br>
     Rozmiar: {{data.parcel.size}}<br>
@@ -23,6 +20,17 @@
     Numer telefonu odbiorcy: {{data.parcel.receiver.phNumber}}<br>
     Numer telefonu nadawcy: {{data.parcel.sender.phNumber}}<br>
     Aktualny status: {{data.status[data.status.length-1].status.status}}<br><br>
+    <h2>Telemetria</h2>
+    <div class="nullTelemetry" *ngIf="nullTelemetry">
+      Brak danych!
+    </div>
+    <div class="telemetry" *ngIf="nullTelemetry == false">
+      Temperatura: {{data.telemetry[data.telemetry.length-1].telemetry.temperature}}<br>
+      Bateria: {{data.telemetry[data.telemetry.length-1].telemetry.batteryStatus}}%<br>
+      Maksymalne przyspieszenie: {{data.telemetry[data.telemetry.length-1].telemetry.maxAcceleration}}<br>
+      Wilgotność: {{data.telemetry[data.telemetry.length-1].telemetry.humidity}}%<br>
+      Adres MAC BlackBoxa: {{data.parcel.box.mac}}<br>
+    </div>
     <button class="show-history" (click)="isShowing = !isShowing">Pokaż historię statusów</button>
     <div class="history" *ngIf="isShowing">
       <div *ngFor="let item of data.status">
@@ -47,9 +55,6 @@
     <div class="map-frame">
       <div id="map"></div>
     </div>
-  </div>
-  <div class="menu-render" *ngIf="display">
-    <app-menu></app-menu>
   </div>
 </div>
 

@@ -24,14 +24,18 @@ export class ParcelDetailsReceiverComponent {
   latitude: number;
 
   id: any;
+  nullTelemetry: boolean = true;
 
   constructor(private parcel:ParcelsService, private route: ActivatedRoute, private app:AppComponent) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.parcel.getParcelDetails(this.id).subscribe(data=>{
       console.warn(data)
       this.data = data
-      this.longitude = parseFloat(this.data.telemetry[this.data.telemetry.length-1].telemetry.longitude)
-      this.latitude = parseFloat(this.data.telemetry[this.data.telemetry.length-1].telemetry.latitude)
+      if (!this.data.telemetry == null) {
+        this.nullTelemetry = false;
+        this.longitude = parseFloat(this.data.telemetry[this.data.telemetry.length-1].telemetry.longitude)
+        this.latitude = parseFloat(this.data.telemetry[this.data.telemetry.length-1].telemetry.latitude)
+      }
       this.initMap();
     })
   }
